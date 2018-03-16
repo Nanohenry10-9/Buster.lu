@@ -6,18 +6,39 @@
 	h1{
 
 	}
-		
 
-
-
-
+	.google_map{
+    width:55%;
+    margin-right:2%;
+    float: left;
+	}	
+	.google_map iframe{
+	   width:100%;
+	}
+	.paragraph {
+    width:42%;
+    float: left;
+	}
+	.clearfix{
+    clear:both
+	}
+	
 	</style>
+
+<div class="google_map">
+      <iframe></iframe>
+</div>
+<div class="paragraph">
+      <p></p>
+</div>
+<div class="clearfix"></div>
+
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="Flat-UI-master/dist/js/flat-ui.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  		<script src="backbone.js"></script>
+  		
   		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  		<link rel="stylesheet" type="text/css" href="Flat-UI-master/dist/css/flat-ui.min.css">
 		
@@ -39,18 +60,20 @@
  			</div>
 		</nav>
 
-		<h1 align="center" style="margin-top: 10%" class="title">Which stop do you want to go?</h1>
+		<h1 align="center" style="margin-top: 5%" class="title">Which stop do you want to go?</h1>
 
 		<br>
-		<div class="container">
+
 				<form align="center">
 					<input align="center" type="text" id="input-text">
 				</form>
-			<button class="btn btn-primary" style="float: left"><i class="fui-location"></i>Locate Me!</button>
-		</div>
+			<button class="btn btn-primary" style="float: left; display:inline-block"><i class="fui-location"></i>Locate Me!</button>
+
+
+
 		<br>
 		<br>
-		<div class="container">
+
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
@@ -59,6 +82,7 @@
 				</thead>
 				<tbody id="table-content"></tbody>
 			</table>
-		</div>
+
 	</body>
+	<script src="backbone.js"></script>
 </html>
