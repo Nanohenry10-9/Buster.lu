@@ -67,6 +67,7 @@ $(document).ready(function() {
 				}
 				row.appendChild(c1);
 				row.appendChild(c2);
+				row.appendChild(c3);
 				list.appendChild(row);
 			}
 		}
