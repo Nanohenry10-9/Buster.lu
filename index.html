@@ -15,7 +15,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="Flat-UI-master/dist/js/flat-ui.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   		
@@ -30,12 +30,12 @@
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
-			 		<a class="navbar-brand" href="https://www.buster.lu">Buster.lu</a>
+			 		<a class="navbar-brand" style="font-size:2vw" href="https://www.buster.lu">Buster.lu</a>
    				</div>
    			<ul class="nav navbar-nav">
-      			<li class="active"><a href="https://www.buster.lu">Home</a></li>
-      			<li><a href="#">About</a></li>
-      			<li><a href="#">Contact</a></li>
+      			<li class="active"><a  style="font-size:1.4vw" href="https://www.buster.lu">Home</a></li>
+      			<li><a href="#" style="font-size:1.4vw">About</a></li>
+      			<li><a href="#" style="font-size:1.4vw">Contact</a></li>
     		</ul>
  			</div>
 		</nav>
@@ -43,20 +43,20 @@
   
 
 		
-			<h1 align="center" style="margin-top: 5%" class="title">Which stop do you want to go to?</h1>
+			<h1 align="center" style="margin-top: 5%; font-size:5vw" class="title">Which stop do you want to go to?</h1>
 
 				<div style="width: 50%; margin-top: 4%; margin-left: 25%; margin-right: 25%; ">
 					<form align="center" id="section textbox" style="float: left; padding: 0.5% ">
-						<input align="center" type="text" id="input-text" style=" width: 215%; height: auto;">
+						<input align="center" class="form-control" type="text" id="input-text" style=" width: 215%; height: auto;">
 					</form>
-					<button class="btn btn-primary" style="float: right;"><i class="fui-location"></i> Locate Me!</button>
+					<button class="btn btn-primary" style="float: right; font-size:1.2vw"><i class="fui-location"></i> Locate Me!</button>
 				</div>
 		
 			<div style="margin-top: 10%; margin-left: 0.1%; margin-right: 0.1%;">
 			<table class="table table-striped table-hover table-responsive">
 				<thead>
-					<tr>
-						<th>Stop name</th><th>Bus stop number</th>
+					<tr style="font-size:1.7vw">
+						<th>Stop name</th>
 					</tr>
 				</thead>
 				<tbody id="table-content"></tbody>
@@ -65,10 +65,10 @@
 
 
 			<div id="pop-up-div" style=" margin-left: 0.1%; margin-right: 0.1%;">
-				<h4 id="pop-up-text">Text Here</h4>
+				<h4  style="font-size:2.0vw" id="pop-up-text">Text Here</h4>
 				<table  class="table table-striped table-hover table-responsive">
 					<thead>
-						<tr>
+						<tr style="font-size:1.7vw">
 							<th>Bus Number</th><th>Final Destination</th><th>Departure Time</th>
 						</tr>
 					</thead>
