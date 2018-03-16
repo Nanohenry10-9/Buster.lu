@@ -17,7 +17,7 @@ $(document).ready(function() {
 				c3.innerHTML = json[i]["properties"]["name"];
 				c3.setAttribute("data-theme", json[i]["properties"]["id"]);
 				c3.addEventListener("click", function(event) {
-					openPopup(c3.getAttribute("data-theme"));
+					openPopup(c3.getAttribute("data-theme"), c3.innerHTML);
 					event.preventDefault();
 				});
 				c1.appendChild(c3);
@@ -28,11 +28,11 @@ $(document).ready(function() {
 		}
 	}
 
-	function openPopup(id) {
+	function openPopup(id, name) {
 		//var box = document.getElementById("pop-up-div");
 		//box[visibility] = "visible";
 		var textbox = document.getElementById("pop-up-text");
-		textbox.innerHTML = "Bus stop number: " + id;
+		textbox.innerHTML = "Bus stop: " + name;
 		var list = document.getElementById("table-content-popup");
 		$("#table-content-popup > tr").slice(0).remove();
 		var t1 = document.createElement("tr");
@@ -51,24 +51,33 @@ $(document).ready(function() {
 				var row = document.createElement("tr");
 				var c1 = document.createElement("th");
 				var c2 = document.createElement("th");
+				var c3 = document.createElement("th");
 				c1.innerHTML = json[i]["line"];
-				var date = new Date(Number(json[i]["departure"]) * 1000);
+				c2.innerHTML = json[i]["destination"];
+				var delay = json[i]["delay"] / 60;
+				var date = new Date((json[i]["departure"] + delay) * 1000);
 				var hours = date.getHours();
 				var minutes = "0" + date.getMinutes();
 				if (minutes.length == 3) {
 					minutes = minutes.substr(1, 3);
 				}
-				c2.innerHTML = hours + ":" + minutes;
-				if (Number(json[i]["delay"]) >= 60) {
-					c2.style.color = "red";
+				c3.innerHTML = hours + ":" + minutes;
+				if (delay > 0) {
+					c3.innerHTML = c3.innerHTML + " (" + delay + " min. late)"
 				}
-				c2.innerHTML = c2.innerHTML + ", " + Number(json[i]["delay"]) / 60;
 				row.appendChild(c1);
 				row.appendChild(c2);
+				row.appendChild(c3);
 				list.appendChild(row);
 			}
 		}
 	}
+
+	$("#input-text").keydown(function(event) {
+		if (event.keyCode == 13) {
+			event.preventDefault();
+		}
+	});
 
 	$("#input-text").keyup(function(event) {
 		search();
