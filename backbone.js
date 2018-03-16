@@ -8,13 +8,13 @@ $(document).ready(function() {
 		req.onload = function() {
 			var json = JSON.parse(req.response).features;
 			var list = document.getElementById("table-content");
+			$("#table-content > tr").slice(0).remove();
 			for (var i = 0; i < json.length; i++) {
-				tableAppend(list, i);
 				var row = document.createElement("tr");
 				var c1 = document.createElement("th");
 				var c2 = document.createElement("th");
-				c1.innerHTML = json[0]["name"];
-				c2.innerHTML = json[0]["id"];
+				c1.innerHTML = json[i]["properties"]["name"];
+				c2.innerHTML = json[i]["properties"]["id"];
 				row.appendChild(c1);
 				row.appendChild(c2);
 				list.appendChild(row);
