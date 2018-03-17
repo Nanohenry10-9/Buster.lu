@@ -5,6 +5,7 @@ function loaded() {
 	document.getElementById("all").style.opacity = 1;
 	document.getElementById("all").style.visibility = 1;
 	$("#dist").hide();
+	$("#result").hide();
 }
 
 $(document).ready(function() {
@@ -38,6 +39,11 @@ $(document).ready(function() {
 				c1.appendChild(c2);
 				row.appendChild(c1);
 				list.appendChild(row);
+			}
+			if (i > 0) {
+				$("#result").show();
+			} else {
+				$("#result").hide();
 			}
 			addEvents();
 		}
@@ -202,6 +208,11 @@ $(document).ready(function() {
 				row.appendChild(c1);
 				row.appendChild(c4);
 				list.appendChild(row);
+			}
+			if (i > 0) {
+				$("#result").show();
+			} else {
+				$("#result").hide();
 			}
 			addEvents();
 		}
