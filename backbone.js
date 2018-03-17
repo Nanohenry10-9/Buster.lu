@@ -172,22 +172,40 @@ $(document).ready(function() {
 			var json = JSON.parse(req.response).features;
 			var list = document.getElementById("table-content");
 			$("#table-content > tr").slice(0).remove();
+			json.sort(function(a, b){
+			   	if (a["properties"]["distance"] > b["properties"]["distance"]) {
+			   		return 1;
+			   	}
+			    if (a["properties"]["distance"] < b["properties"]["distance"]) {
+			    	return -1;
+			    }
+			    return 0;
+			});
 			for (var i = 0; i < json.length && i < 5; i++) {
 				var row = document.createElement("tr");
 				var c1 = document.createElement("th");
 				var c2 = document.createElement("a");
+				var c3 = document.createElement("p");
+				var c4 = document.createElement("th");
 				c2.innerHTML = json[i]["properties"]["name"];
 				c2.setAttribute("id", json[i]["properties"]["id"]);
 				c2.style.cursor = "pointer";
 				c2.setAttribute("lat", json[i]["geometry"]["coordinates"][0]);
 				c2.setAttribute("lon", json[i]["geometry"]["coordinates"][1]);
 				c2.className = "bus-stop";
+				c3.innerHTML = roundup5(json[i]["properties"]["distance"]);
 				c1.appendChild(c2);
+				c4.appendChild(c3);
 				row.appendChild(c1);
+				row.appendChild(c4);
 				list.appendChild(row);
 			}
 			addEvents();
 		}
+	}
+
+	function roundup5(x) {
+		return (x % 5) ? x - x % 5 + 5 : x;
 	}
 
 	function showError(err) {
