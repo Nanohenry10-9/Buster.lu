@@ -71,7 +71,8 @@ $(document).ready(function() {
 			var json = JSON.parse(req.response);
 			var list = document.getElementById("table-content-popup");
 			$("#table-content-popup > tr").slice(0).remove();
-			for (var i = 0; i < json.length && i < 5; i++) {
+			var l = $(document).height() / 3 / 42;
+			for (var i = 0; i < json.length && i < l; i++) {
 				var row = document.createElement("tr");
 				var c1 = document.createElement("th");
 				var c2 = document.createElement("th");
