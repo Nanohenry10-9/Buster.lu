@@ -57,7 +57,9 @@ $(document).ready(function() {
 		$("#all").addClass("view-hidden");
 		$("#pop-up-div").removeClass("view-hidden");
 		$("#pop-up-div").addClass("view-shown");
-		history.pushState(id, "Buster.lu - Bus stop " + name, "/" + id);
+		var thing = [id, name];
+		console.log("Pushed " + thing + " to history");
+		history.pushState(thing, "Buster.lu - Bus stop " + name, "/" + id);
 		console.log("Popup for: " + id + ", " + name);
 		var textbox = document.getElementById("pop-up-text");
 		textbox.innerHTML = "Bus stop: " + name;
@@ -109,6 +111,10 @@ $(document).ready(function() {
 			}
 		}
 	}
+
+	window.addEventListener("popstate", function(event) {
+		openPopup(event[0], event[1]);
+	});
 
 	function displayClock() {
 		var clock = document.getElementById("clock");
@@ -169,7 +175,7 @@ $(document).ready(function() {
 		search();
 	});
 
-	$('body').on('click', function(event) {
+	$("body").on("click", function(event) {
 	    if (event.pageX == 0 && event.pageY > 430 && event.pageY < 486) {
 	    	document.getElementById("fork").style.visibility = "visible";
     	}
