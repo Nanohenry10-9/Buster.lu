@@ -30,6 +30,8 @@ $(document).ready(function() {
 				c2.innerHTML = json[i]["properties"]["name"];
 				c2.setAttribute("id", json[i]["properties"]["id"]);
 				c2.style.cursor = "pointer";
+				c2.setAttribute("lat", json[i]["geometry"]["coordinates"][0]);
+				c2.setAttribute("lon", json[i]["geometry"]["coordinates"][1]);
 				c2.className = "bus-stop";
 				c1.appendChild(c2);
 				row.appendChild(c1);
@@ -47,9 +49,11 @@ $(document).ready(function() {
 		var url = new URL(window.location.href);
 		var s = url.searchParams.get("s");
 		var n = url.searchParams.get("n");
-		if (s != null && n != null) {
+		var lat = url.searchParams.get("lat");
+		var lon = url.searchParams.get("lon");
+		if (s != null && n != null && lat != null && lon != null) {
 			document.title = "Buster.lu - " + n;
-			openPopup(s, n, false);
+			openPopup(s, n, false, lat, lon);
 		} else {
 			document.title = "Buster.lu";
 			closePopup();
@@ -58,17 +62,18 @@ $(document).ready(function() {
 
 	function addEvents() {
 		$(".bus-stop").click(function(event) {
-			openPopup(event.target.getAttribute("id"), event.target.innerHTML, true);
+			console.log(event.target.getAttribute("lat"));
+			openPopup(event.target.getAttribute("id"), event.target.innerHTML, true, event.target.getAttribute("lat"), event.target.getAttribute("lon"));
 		});
 	}
 
-	function openPopup(id, name, pushhistory) {
+	function openPopup(id, name, pushhistory, lat, lon) {
 		$("#all").removeClass("view-shown");
 		$("#all").addClass("view-hidden");
 		$("#pop-up-div").removeClass("view-hidden");
 		$("#pop-up-div").addClass("view-shown");
 		if (pushhistory) {
-			history.pushState(null, "", "?s=" + id + "&n=" + name);
+			history.pushState(null, "", "?s=" + id + "&n=" + name + "&lat=" + lat + "&lon=" + lon);
 		}
 		console.log("Popup for: " + id + ", " + name);
 		var textbox = document.getElementById("pop-up-text");
@@ -84,7 +89,17 @@ $(document).ready(function() {
 		displayClock();
 		clock_interval = setInterval(displayClock, 500);
 		display_interval = setInterval(display, 30000, id);
+		var map = document.getElementById("map");
+		map.src = getmapurl(lat, lon);
+		console.log(getmapurl(lat, lon));
 		console.log("Displaying done.");
+	}
+
+	function getmapurl(lat, lon) {
+	    var url = "https://www.openstreetmap.org/export/embed.html?bbox=";
+	    var url2 = "&layer=mapnik&marker=";
+	    var final = url + lat + "%2C" + lon + "%2C" + lat + "%2C" + lon + url2 + lon + "%2C" + lat;
+	    return final;
 	}
 
 	function display(id) {
@@ -167,6 +182,8 @@ $(document).ready(function() {
 				c2.innerHTML = json[i]["properties"]["name"];
 				c2.setAttribute("id", json[i]["properties"]["id"]);
 				c2.style.cursor = "pointer";
+				c2.setAttribute("lat", json[i]["geometry"]["coordinates"][0]);
+				c2.setAttribute("lon", json[i]["geometry"]["coordinates"][1]);
 				c2.className = "bus-stop";
 				c1.appendChild(c2);
 				row.appendChild(c1);
