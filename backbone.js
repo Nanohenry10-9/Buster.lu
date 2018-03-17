@@ -58,6 +58,7 @@ $(document).ready(function() {
 		$("#pop-up-div").removeClass("view-hidden");
 		$("#pop-up-div").addClass("view-shown");
 		var thing = [id, name];
+		console.log("Pushed " + thing + " to history");
 		history.pushState(thing, "Buster.lu - Bus stop " + name, "/" + id);
 		console.log("Popup for: " + id + ", " + name);
 		var textbox = document.getElementById("pop-up-text");
