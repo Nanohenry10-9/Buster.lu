@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+	document.getElementById("pop-up-div").style.visibility = "hidden";
+	document.getElementById("all").style.visibility = "visible";
+
 	function search() {
 		var text = document.getElementById("input-text").value;
 		var req = new XMLHttpRequest();
@@ -33,8 +36,9 @@ $(document).ready(function() {
 	}
 
 	function openPopup(id, name) {
-		//var box = document.getElementById("pop-up-div");
-		//box[visibility] = "visible";
+		document.getElementById("pop-up-div").style.visibility = "visible";
+		document.getElementById("all").style.visibility = "hidden";
+		history.pushState(null, "Buster.lu - Bus stop " + name, "/" + id);
 		console.log("Popup for: " + id + ", " + name);
 		var textbox = document.getElementById("pop-up-text");
 		textbox.innerHTML = "Bus stop: " + name;
