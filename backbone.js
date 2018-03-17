@@ -8,17 +8,10 @@ function loaded() {
 
 $(document).ready(function() {
 
-	/*var qrcode = new QRCode("test", {
-    	text: "http://jindo.dev.naver.com/collie",
-    	width: 128,
-    	height: 128,
-    	colorDark : "#000000",
-    	colorLight : "#ffffff",
-    	correctLevel : QRCode.CorrectLevel.H
-	});*/
-
 	var display_interval;
 	var clock_interval;
+
+	checkPopup();
 
 	function search() {
 		var text = document.getElementById("input-text").value;
@@ -36,7 +29,7 @@ $(document).ready(function() {
 				var c2 = document.createElement("a");
 				c2.innerHTML = json[i]["properties"]["name"];
 				c2.setAttribute("id", json[i]["properties"]["id"]);
-				c2.setAttribute("href", "#");
+				c2.style.cursor = "pointer";
 				c2.className = "bus-stop";
 				c1.appendChild(c2);
 				row.appendChild(c1);
@@ -46,20 +39,37 @@ $(document).ready(function() {
 		}
 	}
 
+	window.addEventListener("popstate", function() {
+		checkPopup();
+	});
+
+	function checkPopup() {
+		var url = new URL(window.location.href);
+		var s = url.searchParams.get("s");
+		var n = url.searchParams.get("n");
+		if (s != null && n != null) {
+			document.title = "Buster.lu - " + n;
+			openPopup(s, n, false);
+		} else {
+			document.title = "Buster.lu";
+			closePopup();
+		}
+	}
+
 	function addEvents() {
 		$(".bus-stop").click(function(event) {
-			openPopup(event.target.getAttribute("id"), event.target.innerHTML);
+			openPopup(event.target.getAttribute("id"), event.target.innerHTML, true);
 		});
 	}
 
-	function openPopup(id, name) {
+	function openPopup(id, name, pushhistory) {
 		$("#all").removeClass("view-shown");
 		$("#all").addClass("view-hidden");
 		$("#pop-up-div").removeClass("view-hidden");
 		$("#pop-up-div").addClass("view-shown");
-		var thing = [id, name];
-		console.log("Pushed " + thing + " to history");
-		history.pushState(thing, "Buster.lu - Bus stop " + name, "/" + id);
+		if (pushhistory) {
+			history.pushState(null, "", "?s=" + id + "&n=" + name);
+		}
 		console.log("Popup for: " + id + ", " + name);
 		var textbox = document.getElementById("pop-up-text");
 		textbox.innerHTML = "Bus stop: " + name;
@@ -113,16 +123,6 @@ $(document).ready(function() {
 		}
 	}
 
-	window.addEventListener("popstate", function(event) {
-		console.log("Pop-event!");
-		console.log(event[0] + " " + event[1]);
-		if (event[0] != null && event[1] != null) {
-			openPopup(event[0], event[1]);
-		} else {
-			closePopup();
-		}
-	});
-
 	function closePopup() {
 		console.log("Closing...");
 		$("#all").removeClass("view-hidden");
@@ -166,7 +166,7 @@ $(document).ready(function() {
 				var c2 = document.createElement("a");
 				c2.innerHTML = json[i]["properties"]["name"];
 				c2.setAttribute("id", json[i]["properties"]["id"]);
-				c2.setAttribute("href", "#");
+				c2.style.cursor = "pointer";
 				c2.className = "bus-stop";
 				c1.appendChild(c2);
 				row.appendChild(c1);
