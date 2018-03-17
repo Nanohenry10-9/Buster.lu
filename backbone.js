@@ -29,6 +29,7 @@ $(document).ready(function() {
 				var c2 = document.createElement("a");
 				c2.innerHTML = json[i]["properties"]["name"];
 				c2.setAttribute("id", json[i]["properties"]["id"]);
+				c2.style.cursor = "pointer";
 				c2.className = "bus-stop";
 				c1.appendChild(c2);
 				row.appendChild(c1);
@@ -165,6 +166,7 @@ $(document).ready(function() {
 				var c2 = document.createElement("a");
 				c2.innerHTML = json[i]["properties"]["name"];
 				c2.setAttribute("id", json[i]["properties"]["id"]);
+				c2.style.cursor = "pointer";
 				c2.className = "bus-stop";
 				c1.appendChild(c2);
 				row.appendChild(c1);
