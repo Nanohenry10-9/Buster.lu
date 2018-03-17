@@ -118,8 +118,17 @@ $(document).ready(function() {
 		console.log(event[0] + " " + event[1]);
 		if (event[0] != null && event[1] != null) {
 			openPopup(event[0], event[1]);
+		} else {
+			closePopup();
 		}
 	});
+
+	function closePopup() {
+		$("#all").removeClass("view-hidden");
+		$("#all").addClass("view-shown");
+		$("#pop-up-div").removeClass("view-shown");
+		$("#pop-up-div").addClass("view-hidden");
+	}
 
 	function displayClock() {
 		var clock = document.getElementById("clock");
