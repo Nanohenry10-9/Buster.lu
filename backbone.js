@@ -5,7 +5,8 @@ function loaded() {
 
 $(document).ready(function() {
 
-	var interval;
+	var display_interval;
+	var clock_interval;
 
 	function search() {
 		var text = document.getElementById("input-text").value;
@@ -56,7 +57,9 @@ $(document).ready(function() {
 		t1.appendChild(t2);
 		list.appendChild(t1);
 		display(id);
-		interval = setInterval(display, 30000, id);
+		displayClock();
+		clock_interval = setInterval(displayClock, 500);
+		display_interval = setInterval(display, 30000, id);
 	}
 
 	function display(id) {
@@ -92,6 +95,21 @@ $(document).ready(function() {
 				list.appendChild(row);
 			}
 		}
+	}
+
+	function displayClock() {
+		var clock = document.getElementById("clock");
+		var date = new Date;
+		var hours = date.getHours();
+		var minutes = "0" + date.getMinutes();
+		if (minutes.length == 3) {
+			minutes = minutes.substr(1, 3);
+		}
+		var seconds = "0" + date.getSeconds();
+		if (seconds.length == 3) {
+			seconds = seconds.substr(1, 3);
+		}
+		clock.innerHTML = hours + ":" + minutes + ":" + seconds;
 	}
 
 	$("#LocateBtn").click(function() {
