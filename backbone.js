@@ -1,6 +1,8 @@
 function loaded() {
 	document.getElementById("pop-up-div").style.opacity = 0;
+	document.getElementById("pop-up-div").style.visibility = 0;
 	document.getElementById("all").style.opacity = 1;
+	document.getElementById("all").style.visibility = 1;
 }
 
 $(document).ready(function() {
