@@ -4,6 +4,7 @@ function loaded() {
 	document.getElementById("pop-up-div").style.visibility = 0;
 	document.getElementById("all").style.opacity = 1;
 	document.getElementById("all").style.visibility = 1;
+	$("#result").hide();
 }
 
 $(document).ready(function() {
@@ -37,6 +38,11 @@ $(document).ready(function() {
 				row.appendChild(c1);
 				list.appendChild(row);
 			}
+			if (i > 0) {
+				$("#result").show();
+			} else {
+				$("#result").hide();
+			}
 			addEvents();
 		}
 	}
@@ -62,16 +68,13 @@ $(document).ready(function() {
 
 	function addEvents() {
 		$(".bus-stop").click(function(event) {
-			console.log(event.target.getAttribute("lat"));
 			openPopup(event.target.getAttribute("id"), event.target.innerHTML, true, event.target.getAttribute("lat"), event.target.getAttribute("lon"));
 		});
 	}
 
 	function openPopup(id, name, pushhistory, lat, lon) {
-		$("#all").removeClass("view-shown");
-		$("#all").addClass("view-hidden");
-		$("#pop-up-div").removeClass("view-hidden");
-		$("#pop-up-div").addClass("view-shown");
+		$("#all").removeClass("view-shown").addClass("view-hidden");
+		$("#pop-up-div").removeClass("view-hidden").addClass("view-shown");
 		if (pushhistory) {
 			history.pushState(null, "", "?s=" + id + "&n=" + name + "&lat=" + lat + "&lon=" + lon);
 		}
@@ -139,7 +142,7 @@ $(document).ready(function() {
 	}
 
 	function closePopup() {
-		console.log("Closing...");
+		console.log("Closing popup");
 		$("#all").removeClass("view-hidden");
 		$("#all").addClass("view-shown");
 		$("#pop-up-div").removeClass("view-shown");
@@ -188,6 +191,11 @@ $(document).ready(function() {
 				c1.appendChild(c2);
 				row.appendChild(c1);
 				list.appendChild(row);
+			}
+			if (i > 0) {
+				$("#result").show();
+			} else {
+				$("#result").hide();
 			}
 			addEvents();
 		}
