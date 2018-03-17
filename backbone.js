@@ -74,7 +74,7 @@ $(document).ready(function() {
 		}
 		console.log("Popup for: " + id + ", " + name);
 		var textbox = document.getElementById("pop-up-text");
-		textbox.innerHTML = "Bus stop: " + name;
+		textbox.innerHTML = "Stop name: " + name;
 		var list = document.getElementById("table-content-popup");
 		$("#table-content-popup > tr").slice(0).remove();
 		var t1 = document.createElement("tr");
@@ -124,8 +124,17 @@ $(document).ready(function() {
 					minutes = minutes.substr(1, 3);
 				}
 				c3.innerHTML = hours + ":" + minutes;
-				if (delay > 0) {
-					c3.innerHTML = c3.innerHTML + " (" + delay + " min. late)";
+				var time = ((json[i]["departure"] + delay) * 1000) - Date.now();
+				if (time > 0) {
+					date = new Date(time);
+					var arrive = Number(date.getMinutes());
+					if (arrive <= 0) {
+						c3.innerHTML = "🏃 Now 🏃‍♀️";
+					} else if (arrive <= 10) {
+						c3.innerHTML = arrive + " min";
+					}
+				} else {
+					c3.innerHTML = "🏃 Now 🏃‍♀️";
 				}
 				row.appendChild(c1);
 				row.appendChild(c2);
