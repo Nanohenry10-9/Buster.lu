@@ -159,4 +159,10 @@ $(document).ready(function() {
 		search();
 	});
 
+	$('body').on('click', function(event) {
+	    if (event.pageX == 0 && event.pageY > 430 && event.pageY < 486) {
+	    	document.getElementById("fork").style.visibility = "visible";
+    	}
+	});
+
 });
