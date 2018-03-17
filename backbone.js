@@ -113,7 +113,7 @@ $(document).ready(function() {
 		}
 	}
 
-	window.addEventListener("popstate", function(event) {
+	window.onpopstate = function(event) {
 		console.log("Pop-event!");
 		console.log(event[0] + " " + event[1]);
 		if (event[0] != null && event[1] != null) {
@@ -121,7 +121,7 @@ $(document).ready(function() {
 		} else {
 			closePopup();
 		}
-	});
+	}
 
 	function closePopup() {
 		console.log("Closing...");
