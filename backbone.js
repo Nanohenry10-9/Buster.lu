@@ -4,7 +4,6 @@ function loaded() {
 	document.getElementById("pop-up-div").style.visibility = 0;
 	document.getElementById("all").style.opacity = 1;
 	document.getElementById("all").style.visibility = 1;
-	$("#result").hide();
 }
 
 $(document).ready(function() {
@@ -37,11 +36,6 @@ $(document).ready(function() {
 				c1.appendChild(c2);
 				row.appendChild(c1);
 				list.appendChild(row);
-			}
-			if (i > 0) {
-				$("#result").show();
-			} else {
-				$("#result").hide();
 			}
 			addEvents();
 		}
@@ -191,11 +185,6 @@ $(document).ready(function() {
 				c1.appendChild(c2);
 				row.appendChild(c1);
 				list.appendChild(row);
-			}
-			if (i > 0) {
-				$("#result").show();
-			} else {
-				$("#result").hide();
 			}
 			addEvents();
 		}
