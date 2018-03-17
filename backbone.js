@@ -113,7 +113,11 @@ $(document).ready(function() {
 	}
 
 	window.addEventListener("popstate", function(event) {
-		openPopup(event[0], event[1]);
+		console.log("Pop-event!");
+		console.log(event[0] + " " + event[1]);
+		if (event[0] != null && event[1] != null) {
+			openPopup(event[0], event[1]);
+		}
 	});
 
 	function displayClock() {
