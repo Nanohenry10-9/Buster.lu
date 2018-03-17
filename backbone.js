@@ -4,6 +4,8 @@ function loaded() {
 	document.getElementById("pop-up-div").style.visibility = 0;
 	document.getElementById("all").style.opacity = 1;
 	document.getElementById("all").style.visibility = 1;
+	$("#dist").hide();
+	$("#result").hide();
 }
 
 $(document).ready(function() {
@@ -14,6 +16,7 @@ $(document).ready(function() {
 	checkPopup();
 
 	function search() {
+		$("#dist").hide();
 		var text = document.getElementById("input-text").value;
 		var req = new XMLHttpRequest();
 		var url = "https://api.tfl.lu/v1/StopPoint/Search/" + text;
@@ -36,6 +39,11 @@ $(document).ready(function() {
 				c1.appendChild(c2);
 				row.appendChild(c1);
 				list.appendChild(row);
+			}
+			if (i > 0) {
+				$("#result").show();
+			} else {
+				$("#result").hide();
 			}
 			addEvents();
 		}
@@ -163,6 +171,7 @@ $(document).ready(function() {
 	});
 
 	function showPosition(pos) {
+		$("#dist").show();
 		console.log(pos);
 		var req = new XMLHttpRequest();
 		var url = "https://api.tfl.lu/v1/StopPoint/around/" + pos.coords.longitude + "/" + pos.coords.latitude + "/1000";
@@ -193,12 +202,17 @@ $(document).ready(function() {
 				c2.setAttribute("lat", json[i]["geometry"]["coordinates"][0]);
 				c2.setAttribute("lon", json[i]["geometry"]["coordinates"][1]);
 				c2.className = "bus-stop";
-				c3.innerHTML = roundup5(json[i]["properties"]["distance"]);
+				c3.innerHTML = roundup5(json[i]["properties"]["distance"]) + " meters";
 				c1.appendChild(c2);
 				c4.appendChild(c3);
 				row.appendChild(c1);
 				row.appendChild(c4);
 				list.appendChild(row);
+			}
+			if (i > 0) {
+				$("#result").show();
+			} else {
+				$("#result").hide();
 			}
 			addEvents();
 		}
