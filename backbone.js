@@ -1,7 +1,9 @@
-$(document).ready(function() {
-
+function loaded() {
 	document.getElementById("pop-up-div").style.opacity = 0;
 	document.getElementById("all").style.opacity = 1;
+}
+
+$(document).ready(function() {
 
 	function search() {
 		var text = document.getElementById("input-text").value;
@@ -36,11 +38,11 @@ $(document).ready(function() {
 	}
 
 	function openPopup(id, name) {
-		document.getElementById("all").classList.remove("view-shown");
-		document.getElementById("all").classList.add("view-hidden");
-		document.getElementById("pop-up-div").classList.remove("view-hidden");
-		document.getElementById("pop-up-div").classList.add("view-shown");
-		//history.pushState(null, "Buster.lu - Bus stop " + name, "/" + id);
+		$("#all").removeClass("view-shown");
+		$("#all").addClass("view-hidden");
+		$("#pop-up-div").removeClass("view-hidden");
+		$("#pop-up-div").addClass("view-shown");
+		history.pushState(null, "Buster.lu - Bus stop " + name, "/" + id);
 		console.log("Popup for: " + id + ", " + name);
 		var textbox = document.getElementById("pop-up-text");
 		textbox.innerHTML = "Bus stop: " + name;
@@ -92,10 +94,10 @@ $(document).ready(function() {
 		navigator.geolocation.getCurrentPosition(showPosition, showError);
 	});
 
-	function showPosition(pos) { // Continue here...
+	function showPosition(pos) {
 		console.log(pos);
 		var req = new XMLHttpRequest();
-		var url = "https://api.tfl.lu/v1/StopPoint/around/" + pos.lon + "/" + pos.lat + "/1000";
+		var url = "https://api.tfl.lu/v1/StopPoint/around/" + pos.coords.longitude + "/" + pos.coords.latitude + "/1000";
 		req.open("GET", url);
 		req.send();
 		req.onload = function() {

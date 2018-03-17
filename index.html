@@ -12,22 +12,24 @@
 
 .view-shown {
 	animation-name: show_anim;
+	animation-fill-mode: both;
 	animation-duration: 0.5s;
 }
 
 .view-hidden {
 	animation-name: hide_anim;
+	animation-fill-mode: both;
 	animation-duration: 0.5s;
 }
 
 	@keyframes show_anim {
-		from {opacity: 0;}
-		to {opacity: 1;}
+		from {opacity: 0; width: 0%; height: 0%;}
+		to {opacity: 1; width: 80%; height: 100%;}
 	}
 
 	@keyframes hide_anim {
-		from {opacity: 1;}
-		to {opacity: 0;}
+		from {opacity: 1; width: 80%; height: 100%;}
+		to {opacity: 0; width: 0%; height: 0%;}
 	}
 
 
@@ -46,7 +48,7 @@
 		<link rel="shortcut icon" type="image/png" href="">
 
 	</head>
-	<body>
+	<body onload="loaded()">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -61,7 +63,7 @@
 		</nav>
 <div class="container">
   
-<div id="all" style="opacity: 1;">
+<div id="all">
 		
 			<h1 align="center" style="margin-top: 5%; font-size:5vw " class="title">Which stop do you want to go to?</h1>
 
@@ -90,7 +92,7 @@
 			</div>
 
 
-			<div id="pop-up-div" style=" margin-left: 0.1%; margin-right: 0.1%; position: absolute; left: 0px; right: 0px; width: 100%; height: 100%; opacity: 0;">
+			<div id="pop-up-div" style=" margin-left: 0.1%; margin-right: 0.1%; position: absolute; left: 0px; right: 0px; margin-left: 10%; margin-right: 10%;">
 				<h4 id="pop-up-text">Text Here</h4>
 				<table  class="table table-striped table-hover table-responsive">
 					<thead>
