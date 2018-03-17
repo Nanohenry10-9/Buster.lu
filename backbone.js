@@ -74,6 +74,7 @@ $(document).ready(function() {
 		displayClock();
 		clock_interval = setInterval(displayClock, 500);
 		display_interval = setInterval(display, 30000, id);
+		console.log("Displaying done.");
 	}
 
 	function display(id) {
