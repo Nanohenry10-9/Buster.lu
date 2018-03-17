@@ -48,7 +48,7 @@ $(document).ready(function() {
 		$("#all").addClass("view-hidden");
 		$("#pop-up-div").removeClass("view-hidden");
 		$("#pop-up-div").addClass("view-shown");
-		history.pushState(null, "Buster.lu - Bus stop " + name, "/" + id);
+		history.pushState(id, "Buster.lu - Bus stop " + name, "/" + id);
 		console.log("Popup for: " + id + ", " + name);
 		var textbox = document.getElementById("pop-up-text");
 		textbox.innerHTML = "Bus stop: " + name;
