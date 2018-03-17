@@ -124,6 +124,7 @@ $(document).ready(function() {
 	});
 
 	function closePopup() {
+		console.log("Closing...");
 		$("#all").removeClass("view-hidden");
 		$("#all").addClass("view-shown");
 		$("#pop-up-div").removeClass("view-shown");
