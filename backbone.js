@@ -1,13 +1,3 @@
-function loaded() {
-	document.getElementById("pop-up-div").style.opacity = 0;
-	document.getElementById("pop-up-div").style.top = "-1000%";
-	document.getElementById("pop-up-div").style.visibility = 0;
-	document.getElementById("all").style.opacity = 1;
-	document.getElementById("all").style.visibility = 1;
-	$("#dist").hide();
-	$("#result").hide();
-}
-
 $(document).ready(function() {
 
 	var display_interval;
@@ -42,8 +32,10 @@ $(document).ready(function() {
 			}
 			if (i > 0) {
 				$("#result").show();
+				$("#error").hide();
 			} else {
 				$("#result").hide();
+				$("#error").show();
 			}
 			addEvents();
 		}
@@ -211,8 +203,10 @@ $(document).ready(function() {
 			}
 			if (i > 0) {
 				$("#result").show();
+				$("#error").hide();
 			} else {
 				$("#result").hide();
+				$("#error").show();
 			}
 			addEvents();
 		}
