@@ -10,7 +10,7 @@
     grid-template-rows: repeat(8, 25%);
 }
 
-input[type=text], select, textarea {
+/*input[type=text], select, textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -41,7 +41,7 @@ input[type=text], select, textarea {
     .col-75, .col-25 {
         width: 100%;
         margin-top: 0;
-
+*/
 
 	</style>
 
@@ -71,21 +71,29 @@ input[type=text], select, textarea {
     		</ul>
  			</div>
 		</nav>
-<div class="container">
+
   
+		<div class="row">
+  <div class="col-sm-3">.col-sm-4</div>
+  <div class="col-sm-9">.col-sm-8</div>
 
 		
 			<h1 align="center" style="margin-top: 5%; font-size:5vw " class="title">Which stop do you want to go to?</h1>
-
+				<div class="row">
+<div class="container">
+	<div class="input-group">
+		<div class="form-check form-check-inline">
 				<div  class="col-75" align="center" style="; margin-top: 4%; margin-left: 15%; margin-right: 15%; ">
-					<form align="center" id="section textbox" style="float: left; width: 70% padding: 0.5%; ">
-						<input align="center" type="text" id="input-text" style=" width: 28vw ; height: auto;"> <!--width: 215%-->
+					<form align="center" id="section textbox" style="float: left; padding: 0.5%; ">
+						<input align="center" placeholder="Which stop do you want to go to?" class="col-sm-8" type="text" id="input-text" ; height: auto;"> <!--width: 215% style=" width: 28vw  width: 70%-->
 					</form>
 				</div>
 
 				<div class="col-25">
-					<button class="btn btn-primary" id="LocateBtn" style="float: right; width: 25%; font-size:1.1vw"><i class="fui-location"></i> Locate Me!</button>
-
+					<button class="btn btn-primary  col-sm-4" id="LocateBtn" style="float: right; font-size:1.1vw"><i class="fui-location"></i> Locate Me!</button>
+				</div>
+					<!-- width: 25%-->
+				</div>
 				</div>
 		<div class="row"></div>
 
