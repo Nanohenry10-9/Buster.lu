@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
-	document.getElementById("pop-up-div").style.visibility = "hidden";
-	document.getElementById("all").style.visibility = "visible";
+	document.getElementById("pop-up-div").style.opacity = 0;
+	document.getElementById("all").style.opacity = 1;
 
 	function search() {
 		var text = document.getElementById("input-text").value;
@@ -36,9 +36,11 @@ $(document).ready(function() {
 	}
 
 	function openPopup(id, name) {
-		document.getElementById("pop-up-div").style.visibility = "visible";
-		document.getElementById("all").style.visibility = "hidden";
-		history.pushState(null, "Buster.lu - Bus stop " + name, "/" + id);
+		document.getElementById("all").classList.remove("view-shown");
+		document.getElementById("all").classList.add("view-hidden");
+		document.getElementById("pop-up-div").classList.remove("view-hidden");
+		document.getElementById("pop-up-div").classList.add("view-shown");
+		//history.pushState(null, "Buster.lu - Bus stop " + name, "/" + id);
 		console.log("Popup for: " + id + ", " + name);
 		var textbox = document.getElementById("pop-up-text");
 		textbox.innerHTML = "Bus stop: " + name;
@@ -84,6 +86,40 @@ $(document).ready(function() {
 				t2.innerHTML = "Could not load data.";
 			}
 		}
+	}
+
+	$("#LocateBtn").click(function() {
+		navigator.geolocation.getCurrentPosition(showPosition, showError);
+	});
+
+	function showPosition(pos) { // Continue here...
+		console.log(pos);
+		var req = new XMLHttpRequest();
+		var url = "https://api.tfl.lu/v1/StopPoint/around/" + pos.lon + "/" + pos.lat + "/1000";
+		req.open("GET", url);
+		req.send();
+		req.onload = function() {
+			var json = JSON.parse(req.response).features;
+			var list = document.getElementById("table-content");
+			$("#table-content > tr").slice(0).remove();
+			for (var i = 0; i < json.length && i < 5; i++) {
+				var row = document.createElement("tr");
+				var c1 = document.createElement("th");
+				var c2 = document.createElement("a");
+				c2.innerHTML = json[i]["properties"]["name"];
+				c2.setAttribute("id", json[i]["properties"]["id"]);
+				c2.setAttribute("href", "#");
+				c2.className = "bus-stop";
+				c1.appendChild(c2);
+				row.appendChild(c1);
+				list.appendChild(row);
+			}
+			addEvents();
+		}
+	}
+
+	function showError(err) {
+		console.log(err.message);
 	}
 
 	$("#input-text").keydown(function(event) {
