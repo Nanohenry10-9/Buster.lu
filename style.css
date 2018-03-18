@@ -298,9 +298,3 @@ table {
 .contact {
 	font-size: 30px;
 }
-
-#back-btn {
-	cursor: pointer;
-	margin-bottom: 30px;
-	display: block;
-}

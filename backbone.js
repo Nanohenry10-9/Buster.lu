@@ -263,12 +263,6 @@ $(document).ready(function() {
     	}
 	});
 
-	document.getElementById("back-btn").onclick = function() {
-		window.location.href = "index.html";
-		document.title = "Buster.lu";
-		closePopup();
-	}
-
 	window.onpopstate = function() {
 		checkPopup();
 	}
