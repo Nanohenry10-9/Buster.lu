@@ -176,11 +176,11 @@ $(document).ready(function() {
 	}
 
 	$("#LocateBtn").click(function() {
+		document.getElementById("LocateBtn").innerHTML = "Please wait...";
 		navigator.geolocation.getCurrentPosition(showPosition, showError);
 	});
 
 	function showPosition(pos) {
-		document.getElementById("LocateBtn").innerHTML = "Please wait...";
 		$("#dist").show();
 		console.log(pos);
 		var req = new XMLHttpRequest();
