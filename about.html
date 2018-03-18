@@ -1,55 +1,57 @@
 <!DOCTYPE html>
 <html>
-
-	<style type="text/css">
-
-.container {
-    display: grid;
-    /*grid-gap: 1%;*/
-    grid-template-columns: repeat( auto-fit, minmax(200px, 7680px)); /*94% in stead of minmax*/
-    grid-template-rows: repeat(8, 25%);
-}
-
-
-	</style>
-
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="Flat-UI-master/dist/js/flat-ui.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link rel="icon" href="Buster Logo 1 transparent.png" type="image/png">
+
+  		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+ 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/js/flat-ui.min.js"></script>
   		
-  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
- 		<link rel="stylesheet" type="text/css" href="Flat-UI-master/dist/css/flat-ui.min.css">
+		<script src="backbone.js"></script>
+ 		<link rel="stylesheet" href="style.css">
 		
 		<title>Buster.lu</title>
-		<link rel="shortcut icon" type="image/png" href="">
-
 	</head>
-	<body onload="loaded()">
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
+	<body>
+		<nav class="navbar navbar-default navbar-static-top">
+			<div class="container-fluid" id="navbar">
 				<div class="navbar-header">
-			 		<a class="navbar-brand" href="https://www.buster.lu">Buster.lu</a>
-   				</div>
-   			<ul class="nav navbar-nav">
-      			<li><a href="https://www.buster.lu">Home</a></li>
-      			<li class="active"><a href="https://www.buster.lu/about.html">About</a></li>
-      			<li><a href="https://www.buster.lu/contact">Contact</a></li>
-    		</ul>
- 			</div>
+					<a href="index.html" class="navbar-brand"><img id="logo" src="Buster Logo 1 transparent.png">Buster</a>
+				    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-col">
+				    	<span class="icon-bar"></span>
+				    	<span class="icon-bar"></span>
+				    	<span class="icon-bar"></span>
+				    </button>
+		    	</div>
+				<div class="collapse navbar-collapse" id="navbar-col">
+			    	<ul class="nav navbar-nav">
+				        <li class="active"><a href="index.html">Home</a></li>
+				        <li><a href="about.html">About</a></li>
+				        <li><a href="contact.html">Contact</a></li>
+			    	</ul>
+				</div>
+			</div>
 		</nav>
-<div class="container">
-  
-		
-			<p align="center" style="margin-top: 5%; " class="title">We are Henri (Nanohenry) and Leo (Leo0a8est). This app was made for the Game of Code 2018 during the 16 and 17 March.<br><br>Buster.lu is an easy-to-use, website to know the live ETA of Buses. It’s as simple as typing in your bus stop, or selecting your stop with 1 click by using your location… and you’re off on your Bus Traveling needs. It’s made for most of us… the people who know which bus stop and which bus to take but who need to know the real time delays. But it can also be used by tourists by using the map of the bus top placed conveniently below. We made sure that whatever we made, would be beautiful.
-Imagine this, you’re enjoying a warm cup of coffee from your favorite Barista. When suddenly you realized you have to go stand for the bus in the cold and rain. ONLY FOR IT TO BE 5 MINUITES LATE!? AND YOU COULD’VE ENJOYED YOUR COFFEE MORE!?
-That makes me, as the kids say, Mad AF
-Or you’re wondering whether you are going to get your connecting bus in order to be home, so you can play Fortnite with the squad.
-Buster.lu… for all the times your lazy ass has to go get a bus.
-</p>
-
-
-</div>
+ 		<div class="container">
+			<h4 id="about">
+				Made by Leo (Leo0a8est) and Henri (Nanohenry). We are team CoderDojo.
+				<br><br>
+				Buster.lu is an easy-to-use, website to know the live ETA of Buses… That everyone can use right now! It’s as simple as typing in your bus stop, or selecting your stop with a click, using your location… and you’re off on your traveling needs. Despite the name, it also shows… THE TRAM!
+				<br><br>
+				It’s made for the everyman… for the people who know which bus stop and which bus to take but also for who need to know the real time delays. It can also be used by tourists by using the map of the bus stop placed conveniently below. It’s designed to solve a practical problem, <i>beautifully</i>.
+				<br><br>
+				We built it using an API made at a Hackathon 2 years ago, TFL.lu. TFL.lu makes open data from Mobiliteit and other sources, and is easy to use. We are using GitHub pages for the hosting with a CloudFlare at the front for HTTPS. The total investment was 13€ for the domain.
+				<br><br>
+				Imagine this, you’re enjoying a warm cup of coffee from your favorite café. Suddenly, you realize you have to go stand for the bus in the cold and rain. ONLY FOR IT TO BE 5 MINUTES LATE!?! AND YOU COULD’VE ENJOYED YOUR COFFEE FOR LONGER?!?
+				That makes me very mad.
+				Or, you’re wondering whether you are going to get your connecting bus to get home in time to play Minecraft with the squad.
+				<br><br>
+				Buster.lu… for all the times your lazy ass has to go get a bus… just in time.
+			</h4>
+		</div>
 	</body>
 </html>

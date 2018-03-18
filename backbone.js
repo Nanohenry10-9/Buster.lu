@@ -26,6 +26,9 @@ $(document).ready(function() {
 				c2.setAttribute("lat", json[i]["geometry"]["coordinates"][0]);
 				c2.setAttribute("lon", json[i]["geometry"]["coordinates"][1]);
 				c2.className = "bus-stop";
+				c2.style.overflow = "hidden";
+				c2.style.textOverflow = "ellipsis";
+				c2.style.whiteSpace = "nowrap";
 				c1.appendChild(c2);
 				row.appendChild(c1);
 				list.appendChild(row);
@@ -40,10 +43,6 @@ $(document).ready(function() {
 			addEvents();
 		}
 	}
-
-	window.addEventListener("popstate", function() {
-		checkPopup();
-	});
 
 	function checkPopup() {
 		var url = new URL(window.location.href);
@@ -69,6 +68,7 @@ $(document).ready(function() {
 	function openPopup(id, name, pushhistory, lat, lon) {
 		$("#all").removeClass("view-shown").addClass("view-hidden");
 		$("#pop-up-div").removeClass("view-hidden").addClass("view-shown");
+		document.title = "Buster.lu - " + name;
 		if (pushhistory) {
 			history.pushState(null, "", "?s=" + id + "&n=" + name + "&lat=" + lat + "&lon=" + lon);
 		}
@@ -108,7 +108,7 @@ $(document).ready(function() {
 			var json = JSON.parse(req.response);
 			var list = document.getElementById("table-content-popup");
 			$("#table-content-popup > tr").slice(0).remove();
-			var l = $(document).height() / 2 / 42;
+			var l = /*$(document).height() / 2 / 42*/6;
 			for (var i = 0; i < json.length && i < l; i++) {
 				var row = document.createElement("tr");
 				var c1 = document.createElement("th");
@@ -129,13 +129,23 @@ $(document).ready(function() {
 					date = new Date(time);
 					var arrive = Number(date.getMinutes());
 					if (arrive <= 0) {
-						c3.innerHTML = "🏃 Now 🏃‍♀️";
+						c3.innerHTML = "Now 🏃";
 					} else if (arrive <= 10) {
 						c3.innerHTML = arrive + " min";
 					}
 				} else {
-					c3.innerHTML = "🏃 Now 🏃‍♀️";
+					c3.innerHTML = "Now 🏃"; /* 🏃‍♀️ (Rendering issue) */
 				}
+				c1.style.overflow = "hidden";
+				c1.style.textOverflow = "ellipsis";
+				c1.style.whiteSpace = "nowrap";
+				c2.style.overflow = "hidden";
+				c2.style.textOverflow = "ellipsis";
+				c2.style.whiteSpace = "nowrap";
+				c3.style.overflow = "hidden";
+				c3.style.textOverflow = "ellipsis";
+				c3.style.whiteSpace = "nowrap";
+				c2.style.fontSize = "14px";
 				row.appendChild(c1);
 				row.appendChild(c2);
 				row.appendChild(c3);
@@ -146,10 +156,8 @@ $(document).ready(function() {
 
 	function closePopup() {
 		console.log("Closing popup");
-		$("#all").removeClass("view-hidden");
-		$("#all").addClass("view-shown");
-		$("#pop-up-div").removeClass("view-shown");
-		$("#pop-up-div").addClass("view-hidden");
+		$("#pop-up-div").removeClass("view-shown").addClass("view-hidden");
+		$("#all").removeClass("view-hidden").addClass("view-shown");
 	}
 
 	function displayClock() {
@@ -172,6 +180,7 @@ $(document).ready(function() {
 	});
 
 	function showPosition(pos) {
+		document.getElementById("LocateBtn").innerHTML = "Please wait...";
 		$("#dist").show();
 		console.log(pos);
 		var req = new XMLHttpRequest();
@@ -179,6 +188,7 @@ $(document).ready(function() {
 		req.open("GET", url);
 		req.send();
 		req.onload = function() {
+			document.getElementById("LocateBtn").innerHTML = "Locate me";
 			var json = JSON.parse(req.response).features;
 			var list = document.getElementById("table-content");
 			$("#table-content > tr").slice(0).remove();
@@ -203,7 +213,13 @@ $(document).ready(function() {
 				c2.setAttribute("lat", json[i]["geometry"]["coordinates"][0]);
 				c2.setAttribute("lon", json[i]["geometry"]["coordinates"][1]);
 				c2.className = "bus-stop";
+				c2.style.overflow = "hidden";
+				c2.style.textOverflow = "ellipsis";
+				c2.style.whiteSpace = "nowrap";
 				c3.innerHTML = roundup5(json[i]["properties"]["distance"]) + " meters";
+				c3.style.overflow = "hidden";
+				c3.style.textOverflow = "ellipsis";
+				c3.style.whiteSpace = "nowrap";
 				c1.appendChild(c2);
 				c4.appendChild(c3);
 				row.appendChild(c1);
@@ -240,9 +256,20 @@ $(document).ready(function() {
 	});
 
 	$("body").on("click", function(event) {
-	    if (event.pageX == 0 && event.pageY > 430 && event.pageY < 486) {
+	    if (event.pageX <= 1) {
 	    	document.getElementById("fork").style.visibility = "visible";
+	    	document.getElementById("fork").style.top = event.pageY + "px";
+	    	setTimeout(alert, 100, "It's a secret to everybody.");
     	}
 	});
 
+	document.getElementById("back-btn").onclick = function() {
+		window.location.href = "index.html";
+		document.title = "Buster.lu";
+		closePopup();
+	}
+
+	window.onpopstate = function() {
+		checkPopup();
+	}
 });

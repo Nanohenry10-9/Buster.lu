@@ -1,50 +1,45 @@
 <!DOCTYPE html>
 <html>
-
-	<style type="text/css">
-
-.container {
-    display: grid;
-    /*grid-gap: 1%;*/
-    grid-template-columns: repeat( auto-fit, minmax(200px, 7680px)); /*94% in stead of minmax*/
-    grid-template-rows: repeat(8, 25%);
-}
-
-
-	</style>
-
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="Flat-UI-master/dist/js/flat-ui.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link rel="icon" href="Buster Logo 1 transparent.png" type="image/png">
+
+  		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+ 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/js/flat-ui.min.js"></script>
   		
-  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
- 		<link rel="stylesheet" type="text/css" href="Flat-UI-master/dist/css/flat-ui.min.css">
+		<script src="backbone.js"></script>
+ 		<link rel="stylesheet" href="style.css">
 		
 		<title>Buster.lu</title>
-		<link rel="shortcut icon" type="image/png" href="">
-
 	</head>
-	<body onload="loaded()">
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
+	<body>
+		<nav class="navbar navbar-default navbar-static-top">
+			<div class="container-fluid" id="navbar">
 				<div class="navbar-header">
-			 		<a class="navbar-brand" href="https://www.buster.lu">Buster.lu</a>
-   				</div>
-   			<ul class="nav navbar-nav">
-      			<li><a href="https://www.buster.lu">Home</a></li>
-      			<li><a href="https://www.buster.lu/about.html">About</a></li>
-      			<li class="active"><a href="https://www.buster.lu/contact">Contact</a></li>
-    		</ul>
- 			</div>
+					<a href="index.html" class="navbar-brand"><img id="logo" src="Buster Logo 1 transparent.png">Buster</a>
+				    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-col">
+				    	<span class="icon-bar"></span>
+				    	<span class="icon-bar"></span>
+				    	<span class="icon-bar"></span>
+				    </button>
+		    	</div>
+				<div class="collapse navbar-collapse" id="navbar-col">
+			    	<ul class="nav navbar-nav">
+				        <li class="active"><a href="index.html">Home</a></li>
+				        <li><a href="about.html">About</a></li>
+				        <li><a href="contact.html">Contact</a></li>
+			    	</ul>
+				</div>
+			</div>
 		</nav>
-<div class="container">
-  
-		
-			<h1 align="center" style="margin-top: 5%; font-size:3vw " class="title"><a href="https://github.com/Nanohenry10-9/Buster.lu">GitHub page</a></h1>
-
-
-</div>
+ 		<div class="container">
+			<a class="contact" href="https://github.com/Nanohenry10-9/Buster.lu">Project GitHub page</a><br>
+			<a class="contact" href="https://twitter.com/nH10_9">Nanohenry's Twitter</a><br>
+			<a class="contact" href="https://twitter.com/leo0a8est">Leo0a8est's Twitter</a>
+		</div>
 	</body>
 </html>
