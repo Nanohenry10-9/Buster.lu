@@ -137,13 +137,11 @@ $(document).ready(function() {
 					c3.innerHTML = "Now 🏃"; /* 🏃‍♀️ (Rendering issue) */
 				}
 				c1.style.overflow = "hidden";
-				c1.style.textOverflow = "ellipsis";
 				c1.style.whiteSpace = "nowrap";
 				c2.style.overflow = "hidden";
 				c2.style.textOverflow = "ellipsis";
 				c2.style.whiteSpace = "nowrap";
 				c3.style.overflow = "hidden";
-				c3.style.textOverflow = "ellipsis";
 				c3.style.whiteSpace = "nowrap";
 				c2.style.fontSize = "14px";
 				row.appendChild(c1);

@@ -282,6 +282,8 @@ table {
 
 .table-50 {
 	width: 50%;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 .table-60 {
