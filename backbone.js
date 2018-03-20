@@ -90,7 +90,7 @@ $(document).ready(function() {
 		displayClock();
 		clock_interval = setInterval(displayClock, 1000);
 		display_interval1 = setInterval(display, 30000, id, 1);
-		display_interval2 = setInterval(display, 1000, id, 0);
+		display_interval2 = setInterval(display, 5000, id, 0);
 		var map = document.getElementById("map");
 		map.src = getmapurl(lat, lon);
 		console.log(getmapurl(lat, lon));
@@ -130,32 +130,32 @@ $(document).ready(function() {
 			var c3 = document.createElement("th");
 			c1.innerHTML = display_json[i]["line"];
 			c2.innerHTML = display_json[i]["destination"];
-			var delay = display_json[i]["delay"] / 60;
-			var date = new Date((display_json[i]["departure"] + delay) * 1000);
+			//var delay = display_json[i]["delay"] / 60;
+			var date = new Date(display_json[i]["departure"] * 1000);
 			var hours = date.getHours();
 			var minutes = "0" + date.getMinutes();
 			if (minutes.length == 3) {
 				minutes = minutes.substr(1, 3);
 			}
 			c3.innerHTML = hours + ":" + minutes;
-			var time = ((display_json[i]["departure"] + delay) * 1000) - Date.now();
-			if (time >= 0) {
+			var time = (display_json[i]["departure"] * 1000) - Date.now();
+			if (time / 1000 >= 0) {
 				date = new Date(time);
 				var arriveM = Number(date.getMinutes());
 				var arriveS = Number(date.getSeconds());
-				if (arriveM <= 0) {
-					if (arriveS <= 10) {
-						if (arriveS <= 0) {
-							l++;
-							continue;
-						}
-						c3.innerHTML = "Now 🏃";
-					} else {
-						c3.innerHTML = arriveS + " sec";
-					}
+				if (arriveM <= 0 && arriveS <= 30) {
+					c3.innerHTML = "Now 🏃";
+					console.log(time / 1000);
 				} else if (arriveM <= 10) {
-					c3.innerHTML = arriveM + " min";
+					if (arriveM <= 0) {
+						c3.innerHTML = "< 1 min";
+					} else {
+						c3.innerHTML = arriveM + " min";
+					}
 				}
+			} else if (time / 1000 >= -30) {
+				c3.innerHTML = "Now 🏃";
+				console.log(time / 1000);
 			} else {
 				l++;
 				continue;
