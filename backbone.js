@@ -103,7 +103,6 @@ $(document).ready(function() {
 	    var final = url + lat + "%2C" + lon + "%2C" + lat + "%2C" + lon + url2 + lon + "%2C" + lat;
 	    return final;
 	}
-
 	function display(id, update) {
 		if (update) {
 			var req = new XMLHttpRequest();
