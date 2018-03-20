@@ -1,7 +1,10 @@
 $(document).ready(function() {
 
-	var display_interval;
+	var display_interval1;
+	var display_interval2;
 	var clock_interval;
+
+	var display_json;
 
 	checkPopup();
 
@@ -82,10 +85,12 @@ $(document).ready(function() {
 		t2.innerHTML = "Please wait...";
 		t1.appendChild(t2);
 		list.appendChild(t1);
-		display(id);
+		display(id, 1);
+		display(id, 0);
 		displayClock();
-		clock_interval = setInterval(displayClock, 500);
-		display_interval = setInterval(display, 30000, id);
+		clock_interval = setInterval(displayClock, 1000);
+		display_interval1 = setInterval(display, 30000, id, 1);
+		display_interval2 = setInterval(display, 1000, id, 0);
 		var map = document.getElementById("map");
 		map.src = getmapurl(lat, lon);
 		console.log(getmapurl(lat, lon));
@@ -99,56 +104,75 @@ $(document).ready(function() {
 	    return final;
 	}
 
-	function display(id) {
-		var req = new XMLHttpRequest();
-		var url = "https://api.tfl.lu/v1/StopPoint/Departures/" + id;
-		req.open("GET", url);
-		req.send();
-		req.onload = function() {
-			var json = JSON.parse(req.response);
-			var list = document.getElementById("table-content-popup");
-			$("#table-content-popup > tr").slice(0).remove();
-			var l = /*$(document).height() / 2 / 42*/6;
-			for (var i = 0; i < json.length && i < l; i++) {
-				var row = document.createElement("tr");
-				var c1 = document.createElement("th");
-				var c2 = document.createElement("th");
-				var c3 = document.createElement("th");
-				c1.innerHTML = json[i]["line"];
-				c2.innerHTML = json[i]["destination"];
-				var delay = json[i]["delay"] / 60;
-				var date = new Date((json[i]["departure"] + delay) * 1000);
-				var hours = date.getHours();
-				var minutes = "0" + date.getMinutes();
-				if (minutes.length == 3) {
-					minutes = minutes.substr(1, 3);
-				}
-				c3.innerHTML = hours + ":" + minutes;
-				var time = ((json[i]["departure"] + delay) * 1000) - Date.now();
-				if (time > 0) {
-					date = new Date(time);
-					var arrive = Number(date.getMinutes());
-					if (arrive <= 0) {
-						c3.innerHTML = "Now 🏃";
-					} else if (arrive <= 10) {
-						c3.innerHTML = arrive + " min";
-					}
-				} else {
-					c3.innerHTML = "Now 🏃"; /* 🏃‍♀️ (Rendering issue) */
-				}
-				c1.style.overflow = "hidden";
-				c1.style.whiteSpace = "nowrap";
-				c2.style.overflow = "hidden";
-				c2.style.textOverflow = "ellipsis";
-				c2.style.whiteSpace = "nowrap";
-				c3.style.overflow = "hidden";
-				c3.style.whiteSpace = "nowrap";
-				c2.style.fontSize = "14px";
-				row.appendChild(c1);
-				row.appendChild(c2);
-				row.appendChild(c3);
-				list.appendChild(row);
+	function display(id, update) {
+		if (update) {
+			var req = new XMLHttpRequest();
+			var url = "https://api.tfl.lu/v1/StopPoint/Departures/" + id;
+			req.open("GET", url);
+			req.send();
+			req.onload = function() {
+				display_json = JSON.parse(req.response);
+				showdata();
 			}
+		} else {
+			showdata();
+		}
+	}
+
+	function showdata() {
+		if (display_json == null) return;
+		var list = document.getElementById("table-content-popup");
+		$("#table-content-popup > tr").slice(0).remove();
+		var l = /*$(document).height() / 2 / 42*/10;
+		for (var i = 0; i < display_json.length && i < l; i++) {
+			var row = document.createElement("tr");
+			var c1 = document.createElement("th");
+			var c2 = document.createElement("th");
+			var c3 = document.createElement("th");
+			c1.innerHTML = display_json[i]["line"];
+			c2.innerHTML = display_json[i]["destination"];
+			var delay = display_json[i]["delay"] / 60;
+			var date = new Date((display_json[i]["departure"] + delay) * 1000);
+			var hours = date.getHours();
+			var minutes = "0" + date.getMinutes();
+			if (minutes.length == 3) {
+				minutes = minutes.substr(1, 3);
+			}
+			c3.innerHTML = hours + ":" + minutes;
+			var time = ((display_json[i]["departure"] + delay) * 1000) - Date.now();
+			if (time >= 0) {
+				date = new Date(time);
+				var arriveM = Number(date.getMinutes());
+				var arriveS = Number(date.getSeconds());
+				if (arriveM <= 0) {
+					if (arriveS <= 10) {
+						if (arriveS <= 0) {
+							l++;
+							continue;
+						}
+						c3.innerHTML = "Now 🏃";
+					} else {
+						c3.innerHTML = arriveS + " sec";
+					}
+				} else if (arriveM <= 10) {
+					c3.innerHTML = arriveM + " min";
+				}
+			} else {
+				l++;
+				continue;
+			}
+			c1.style.overflow = "hidden";
+			c1.style.whiteSpace = "nowrap";
+			c2.style.overflow = "hidden";
+			c2.style.textOverflow = "ellipsis";
+			c2.style.whiteSpace = "nowrap";
+			c3.style.overflow = "hidden";
+			c3.style.whiteSpace = "nowrap";
+			c2.style.fontSize = "14px";
+			row.appendChild(c1);
+			row.appendChild(c2);
+			row.appendChild(c3);
+			list.appendChild(row);
 		}
 	}
 
@@ -156,6 +180,9 @@ $(document).ready(function() {
 		console.log("Closing popup");
 		$("#pop-up-div").removeClass("view-shown").addClass("view-hidden");
 		$("#all").removeClass("view-hidden").addClass("view-shown");
+		clearInterval(display_interval1);
+		clearInterval(display_interval2);
+		clearInterval(clock_interval);
 	}
 
 	function displayClock() {
