@@ -116,15 +116,15 @@ $(document).ready(function() {
 				var c3 = document.createElement("th");
 				c1.innerHTML = json[i]["line"];
 				c2.innerHTML = json[i]["destination"];
-				var delay = json[i]["delay"] / 60;
-				var date = new Date((json[i]["departure"] + delay) * 1000);
+				//var delay = json[i]["delay"] / 60;
+				var date = new Date(json[i]["departure"] * 1000);
 				var hours = date.getHours();
 				var minutes = "0" + date.getMinutes();
 				if (minutes.length == 3) {
 					minutes = minutes.substr(1, 3);
 				}
 				c3.innerHTML = hours + ":" + minutes;
-				var time = ((json[i]["departure"] + delay) * 1000) - Date.now();
+				var time = (json[i]["departure"] * 1000) - Date.now();
 				if (time > 0) {
 					date = new Date(time);
 					var arrive = Number(date.getMinutes());
