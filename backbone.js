@@ -1,6 +1,6 @@
 function version() {
 	var text = document.getElementById("about");
-	text.innerHTML += "2.4";
+	text.innerHTML += "/ JavaScript version 2.4";
 }
 
 $(document).ready(function() {
