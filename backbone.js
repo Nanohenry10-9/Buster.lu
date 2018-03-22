@@ -1,3 +1,8 @@
+function version() {
+	var text = document.getElementById("about");
+	text.innerHTML += "2.4";
+}
+
 $(document).ready(function() {
 
 	var display_interval1;
