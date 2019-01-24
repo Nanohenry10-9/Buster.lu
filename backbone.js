@@ -1,8 +1,3 @@
-function version() {
-	var text = document.getElementById("about");
-	text.innerHTML += "/ JavaScript version 2.4";
-}
-
 $(document).ready(function() {
 
 	var display_interval1;
@@ -20,6 +15,9 @@ $(document).ready(function() {
 		var url = "https://api.tfl.lu/v1/StopPoint/Search/" + text;
 		req.open("GET", url);
 		req.send();
+		req.onerror = function() {
+			alert("Uh oh, there was an error searching for your stop.");
+		}
 		req.onload = function() {
 			var json = JSON.parse(req.response).features;
 			var list = document.getElementById("table-content");
@@ -117,6 +115,9 @@ $(document).ready(function() {
 			req.onload = function() {
 				display_json = JSON.parse(req.response);
 				showdata();
+			}
+			req.onerror = function() {
+				alert("Uh oh, there was an error fetching your bus schedules.");
 			}
 		} else {
 			showdata();
@@ -216,6 +217,10 @@ $(document).ready(function() {
 		var url = "https://api.tfl.lu/v1/StopPoint/around/" + pos.coords.longitude + "/" + pos.coords.latitude + "/1000";
 		req.open("GET", url);
 		req.send();
+		req.onerror = function() {
+			document.getElementById("LocateBtn").innerHTML = "Locate me";
+			alert("Uh oh, there was an error searching for stops around you.");
+		}
 		req.onload = function() {
 			document.getElementById("LocateBtn").innerHTML = "Locate me";
 			var json = JSON.parse(req.response).features;
