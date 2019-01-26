@@ -7,6 +7,17 @@ $(document).ready(function() {
 	var display_json;
 
 	checkPopup();
+	
+	// The following 9 rows are temporary only.
+	$("#error").show();
+	document.getElementById("error").style.height = "200px";
+	document.getElementById("error").style.width = "80%";
+	document.getElementById("error").style.marginTop = "60px";
+	document.getElementById("error").style.marginLeft = "10%";
+	document.getElementById("error").style.backgroundColor = "white";
+	document.getElementById("error").style.border = "white";
+	document.getElementById("error-text").style.textAlign = "justify";
+	document.getElementById("error-text").innerHTML = "Unfortunately Buster.lu is not working at the moment, due to unexpected issues with the <a href='https://api.tfl.lu' target='_blank'>TFL API</a>. Fixing the API is not in our hands, but we are trying our best to get Buster.lu working again.<br><br>Thanks for all the feedback! It really tells us that Buster.lu has been found useful by many people :)";
 
 	function search() {
 		$("#dist").hide();
