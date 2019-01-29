@@ -16,8 +16,8 @@ $(document).ready(function() {
 	document.getElementById("error").style.marginLeft = "10%";
 	document.getElementById("error").style.backgroundColor = "white";
 	document.getElementById("error").style.border = "white";
+	document.getElementById("error-text").innerHTML = "Unfortunately Buster.lu is not working at the moment, due to unexpected issues with the API used for fetching the real-time bus departure times. Fixing the API is not in our hands, but we are trying our best to get Buster.lu working again.<br><br>Thanks for all the feedback! It really tells us that Buster.lu has been found useful by many people :)";
 	document.getElementById("error-text").style.textAlign = "justify";
-	document.getElementById("error-text").innerHTML = "Unfortunately Buster.lu is not working at the moment, due to unexpected issues with the <a href='https://api.tfl.lu' target='_blank'>TFL API</a>. Fixing the API is not in our hands, but we are trying our best to get Buster.lu working again.<br><br>Thanks for all the feedback! It really tells us that Buster.lu has been found useful by many people :)";
 
 	function search() {
 		$("#dist").hide();
