@@ -8,7 +8,8 @@
 
 	checkPopup();
 	
-	// The following 9 rows are temporary only.
+	// In case Buster.lu ever breaks again, please uncomment the following lines.
+	/*
 	$("#error").show();
 	document.getElementById("error").style.height = "200px";
 	document.getElementById("error").style.width = "80%";
@@ -16,12 +17,14 @@
 	document.getElementById("error").style.marginLeft = "10%";
 	document.getElementById("error").style.backgroundColor = "white";
 	document.getElementById("error").style.border = "white";
-	document.getElementById("error-text").innerHTML = "Unfortunately Buster.lu has not been working since January 2019, due to unexpected issues with the API used for fetching the real-time bus departure times. Fixing the API is not in our hands, but we are trying our best to get Buster.lu working again.<br><br>Thanks for all the feedback! It really tells us that Buster.lu has been found useful by many people :)";
+	document.getElementById("error-text").innerHTML = "Unfortunately Buster.lu is not working at the moment.";
 	document.getElementById("error-text").style.textAlign = "justify";
-
+	*/
+	
 	function search() {
-		$("#dist").hide();
 		var text = document.getElementById("input-text").value;
+		if (text.length == 0) return;
+		$("#dist").hide();
 		var req = new XMLHttpRequest();
 		var url = "https://api.tfl.lu/v1/StopPoint/Search/" + text;
 		req.open("GET", url);
@@ -216,8 +219,10 @@
 		clock.innerHTML = hours + ":" + minutes + ":" + seconds;
 	}
 
+	var locTime;
 	$("#LocateBtn").click(function() {
 		document.getElementById("LocateBtn").innerHTML = "Please wait...";
+		locTime = Date.now();
 		navigator.geolocation.getCurrentPosition(showPosition, showError);
 	});
 
@@ -286,8 +291,11 @@
 		return (x % 5) ? x - x % 5 + 5 : x;
 	}
 
-	function showError(err) {
-		console.log(err.message);
+	function showError() {
+		if (Date.now() - locTime < 50) {
+			alert("You have denied access to location data.\n\nPlease allow location to use \"Locate me\".");
+		}
+		document.getElementById("LocateBtn").innerHTML = "Locate me";
 	}
 
 	$("#input-text").keydown(function(event) {
