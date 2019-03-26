@@ -8,18 +8,16 @@
 
 	checkPopup();
 	
-	// In case Buster.lu ever breaks again, please uncomment the following lines.
-	/*
+	// In case Buster.lu suddenly works again, please comment out the following 9 lines.
 	$("#error").show();
 	document.getElementById("error").style.height = "200px";
 	document.getElementById("error").style.width = "80%";
-	document.getElementById("error").style.marginTop = "60px";
+	document.getElementById("error").style.marginTop = "30px";
 	document.getElementById("error").style.marginLeft = "10%";
 	document.getElementById("error").style.backgroundColor = "white";
 	document.getElementById("error").style.border = "white";
-	document.getElementById("error-text").innerHTML = "Unfortunately Buster.lu is not working at the moment.";
+	document.getElementById("error-text").innerHTML = "Hello Luxembourg!<br><br>We are currently in the process of adapting Buster.lu to use other methods of fetching real-time bus schedules.<br><br>Thanks for your patience, and see you soon!<br><br>Sincerely,<br>The Buster.lu team<br>Leo & Henri";
 	document.getElementById("error-text").style.textAlign = "justify";
-	*/
 	
 	function search() {
 		var text = document.getElementById("input-text").value;
