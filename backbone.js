@@ -162,7 +162,6 @@ $(document).ready(function() {
 			$("#all").removeClass("view-shown").addClass("view-hidden");
 			$("#pop-up-div").removeClass("view-hidden").addClass("view-shown");
 			document.title = "Buster.lu - " + name;
-			console.log("Pushing history");
 			history.pushState(null, "", "?id=" + id);
 			var textbox = document.getElementById("pop-up-text");
 			textbox.innerHTML = "Stop name: " + name;
@@ -313,7 +312,6 @@ $(document).ready(function() {
 			for (var i = 0; i < p.length; i++) {
 				p[i].push(getDistance(parseFloatC(p[i][1][1]), parseFloatC(p[i][1][0]), pos.coords.latitude, pos.coords.longitude));
 			}
-			console.log(p);
 			document.getElementById("LocateBtn").innerHTML = "Locate me";
 			var list = document.getElementById("table-content");
 			$("#table-content > tr").slice(0).remove();
