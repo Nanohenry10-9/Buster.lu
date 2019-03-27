@@ -190,19 +190,43 @@ $(document).ready(function() {
 		var list = document.getElementById("table-content-popup");
 		$("#table-content-popup > tr").slice(0).remove();
 		var l = 10;
+		var u = [];
 		for (var i = 0; i < displayJSON["Departure"].length && i < l; i++) {
 			if (displayJSON["Departure"][i]["rtTime"] == null) {
 				l++;
 				continue;
 			}
+			var d = displayJSON["Departure"][i]["rtTime"].split(':');
+			var date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), d[0], d[1], d[2]);
+			var time = date - Date.now();
+			if (time < -30) {
+				l++;
+				continue;
+			}
+			u.push(displayJSON["Departure"][i]);
+		}
+		u.sort(function(x, y) {
+			var d1 = x["rtTime"].split(':');
+			var d2 = y["rtTime"].split(':');
+			var date1 = (new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), d1[0], d1[1], d1[2]) - Date.now()) / 1000;
+			var date2 = (new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), d2[0], d2[1], d2[2]) - Date.now()) / 1000;
+			if (date1 < date2) {
+				return -1;
+			}
+			if (date1 > date2) {
+				return 1;
+			}
+			return 0;
+		});
+		for (var i = 0; i < u.length; i++) {
 			var row = document.createElement("tr");
 			var c1 = document.createElement("th");
 			var c2 = document.createElement("th");
 			var c3 = document.createElement("th");
-			c1.innerHTML = displayJSON["Departure"][i]["Product"]["line"];
-			c2.innerHTML = displayJSON["Departure"][i]["direction"];
-			var d = displayJSON["Departure"][i]["rtTime"].split(':');
-			var date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), d[0], d[1], [2]);
+			c1.innerHTML = u[i]["Product"]["line"];
+			c2.innerHTML = u[i]["direction"];
+			var d = u[i]["rtTime"].split(':');
+			var date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), d[0], d[1], d[2]);
 			var hours = "" + date.getHours();
 			var minutes = "" + date.getMinutes();
 			if (hours.length == 1) {
@@ -228,9 +252,6 @@ $(document).ready(function() {
 				}
 			} else if (time / 1000 >= -30) {
 				c3.innerHTML = "Now 🏃";
-			} else {
-				l++;
-				continue;
 			}
 			c1.style.overflow = "hidden";
 			c1.style.whiteSpace = "nowrap";
