@@ -78,7 +78,7 @@
 			row.appendChild(c1);
 			list.appendChild(row);
 		}
-		if (i > 0) {
+		if (results.length > 0) {
 			$("#result").show();
 			$("#error").hide();
 		} else {
