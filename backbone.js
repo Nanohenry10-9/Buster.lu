@@ -192,8 +192,7 @@
 		var u = [];
 		for (var i = 0; i < displayJSON["Departure"].length && i < l; i++) {
 			if (displayJSON["Departure"][i]["rtTime"] == null) {
-				l++;
-				continue;
+                displayJSON["Departure"][i]["rtTime"] = displayJSON["Departure"][i]["time"];
 			}
 			var d = displayJSON["Departure"][i]["rtTime"].split(':');
 			var date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), d[0], d[1], d[2]);
