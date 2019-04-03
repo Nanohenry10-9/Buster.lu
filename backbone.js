@@ -1,4 +1,4 @@
-$(document).ready(function() {
+﻿$(document).ready(function() {
 
 	var display_interval1;
 	var display_interval2;
@@ -290,9 +290,11 @@ $(document).ready(function() {
 		clock.innerHTML = hours + ":" + minutes + ":" + seconds;
 	}
 
+	var locTime;
 	$("#LocateBtn").click(function() {
 		document.getElementById("LocateBtn").innerHTML = "Please wait...";
 		navigator.geolocation.getCurrentPosition(getStopsNearby, showError);
+		locTime = Date.now();
 	});
 
 	function getStopsNearby(pos) {
@@ -380,8 +382,11 @@ $(document).ready(function() {
 		return (x % 5) ? x - x % 5 + 5 : x;
 	}
 
-	function showError(err) {
-		console.log(err.message);
+	function showError() {
+		if (Date.now() - locTime < 50) {
+			alert("You have denied access to location data.\n\nPlease allow location to use \"Locate me\".");
+		}
+		document.getElementById("LocateBtn").innerHTML = "Locate me";
 	}
 
 	$("#input-text").keydown(function(event) {
