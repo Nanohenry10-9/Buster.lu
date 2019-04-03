@@ -429,6 +429,6 @@ function getDistance(lat1, lon1, lat2, lon2) {
 	return 6371000 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-function radians(d) {
-	return d * (Math.PI / 180);
+function radians(deg) {
+	return deg * (Math.PI / 180);
 }
