@@ -297,6 +297,13 @@
 		locTime = Date.now();
 	});
 
+    function showError() {
+        if (Date.now() - locTime < 50) {
+            alert("You have denied access to location data.\n\nPlease allow location to use \"Locate me\".");
+        }
+        document.getElementById("LocateBtn").innerHTML = "Locate me";
+    }
+
 	function getStopsNearby(pos) {
 		$("#dist").show();
 		var req = new XMLHttpRequest();
@@ -380,13 +387,6 @@
 
 	function roundup5(x) {
 		return (x % 5) ? x - x % 5 + 5 : x;
-	}
-
-	function showError() {
-		if (Date.now() - locTime < 50) {
-			alert("You have denied access to location data.\n\nPlease allow location to use \"Locate me\".");
-		}
-		document.getElementById("LocateBtn").innerHTML = "Locate me";
 	}
 
 	$("#input-text").keydown(function(event) {
