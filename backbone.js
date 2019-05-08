@@ -320,7 +320,7 @@
 		req.onload = function() {
 			var p = parseRaw(req.response);
 			for (var i = 0; i < p.length; i++) {
-				p[i].push(getDistance(parseFloatC(p[i][1][1]), parseFloatC(p[i][1][0]), pos.coords.latitude, pos.coords.longitude));
+				p[i].push(getDistance(parseFloatC(p[i][4]), parseFloatC(p[i][3]), pos.coords.latitude, pos.coords.longitude));
 			}
 			document.getElementById("LocateBtn").innerHTML = "Locate me";
 			var list = document.getElementById("table-content");
@@ -338,19 +338,19 @@
 				var c2 = document.createElement("a");
 				var c3 = document.createElement("p");
 				var c4 = document.createElement("th");
-				c2.innerHTML = p[i][1][3];
+				c2.innerHTML = p[i][2];
 				c2.style.cursor = "pointer";
-				c2.setAttribute("lat", p[i][1][1]);
-				c2.setAttribute("lon", p[i][1][0]);
+				c2.setAttribute("lat", p[i][4]);
+				c2.setAttribute("lon", p[i][3]);
 				c2.className = "bus-stop";
 				c2.style.overflow = "hidden";
 				c2.style.textOverflow = "ellipsis";
 				c2.style.whiteSpace = "nowrap";
-				c2.setAttribute("name", p[i][1][3]);
+				c2.setAttribute("id", p[i][0]);
 				c2.addEventListener("click", function(event) {
-					openPopup(getStopByName(event.target.getAttribute("name")));
+					openPopup(event.target.getAttribute("id"));
 				}, false);
-				c3.innerHTML = roundup5(p[i][2]) + " meters";
+				c3.innerHTML = roundup5(p[i][9]) + " meters";
 				c3.style.overflow = "hidden";
 				c3.style.textOverflow = "ellipsis";
 				c3.style.whiteSpace = "nowrap";
@@ -362,28 +362,35 @@
 			}
 		}
 	}
-	
+
 	function parseRaw(data) {
-		var l = [];
-		var r = [];
-		var buf = "";
-		var row = "";
-		for (var i = 0; i < data.length; i++) {
-			if (data[i] == '\n' || data[i] == '\r') {
-				r.push(buf);
-				l.push([row, r]);
-				r = [];
-				row = "";
-				buf = "";
-			} else if (data[i] == ';') {
-				r.push(buf);
-				buf = "";
-			} else {
-				row += data[i];
-				buf += data[i];
+		var rows = [];
+		var noRead = true;
+		for (var i = 0; i < data.split('\n').length - 1; i++) {
+			var row = data.split('\n')[i].substr(0, data.split('\n')[i].length - 2);
+			var columns = [row];
+			var buf = "";
+			for (var j = 0; j < row.length; j++) {
+				if ((row[j] == '@' || row[j] == ';') && !noRead) {
+					noRead = true;
+					if (buf.length > 0) {
+						columns.push(buf);
+						buf = "";
+					}
+				} else if (row[j] == '=' && noRead) {
+					noRead = false;
+				} else {
+					if (!noRead) {
+						buf += row[j];
+					}
+				}
 			}
+			if (buf.length > 0) {
+				columns.push(buf);
+			}
+			rows.push(columns);
 		}
-		return l;
+		return rows;
 	}
 
 	function roundup5(x) {
