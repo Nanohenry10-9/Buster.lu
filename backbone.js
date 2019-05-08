@@ -1,5 +1,7 @@
 ﻿$(document).ready(function() {
 
+	var proxy = "https://debiliteit.stereo.lu/";
+
 	var display_interval1;
 	var display_interval2;
 	var clock_interval;
@@ -142,7 +144,7 @@
 	}
 	
 	function loadSchedules(id) {
-		var requestURL = "https://cors-anywhere.herokuapp.com/https://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&format=json&" + id;
+		var requestURL = proxy + "restproxy/departureBoard?accessId=cdt&format=json&" + id;
 		var req = new XMLHttpRequest();
 		req.open("GET", requestURL);
 		req.send();
@@ -152,7 +154,7 @@
 	}
 	
 	function openPopup(id) {
-		var requestURL = "https://cors-anywhere.herokuapp.com/https://travelplanner.mobiliteit.lu/restproxy/departureBoard?accessId=cdt&format=json&" + id;
+		var requestURL = proxy + "restproxy/departureBoard?accessId=cdt&format=json&" + id;
 		var req = new XMLHttpRequest();
 		req.open("GET", requestURL);
 		req.send();
@@ -308,7 +310,7 @@
 		var req = new XMLHttpRequest();
 		var look_y = Math.round(pos.coords.latitude * 1000000);
 		var look_x = Math.round(pos.coords.longitude * 1000000);
-		var url = "https://cors-anywhere.herokuapp.com/https://travelplanner.mobiliteit.lu/hafas/query.exe/dot?performLocating=2&tpl=stop2csv&stationProxy=yes%20&look_maxdist=500&look_x=" + look_x + "&look_y=" + look_y;
+		var url = proxy + "hafas/query.exe/dot?performLocating=2&tpl=stop2csv&stationProxy=yes&look_maxdist=500&look_x=" + look_x + "&look_y=" + look_y;
 		req.open("GET", url);
 		req.send();
 		req.onerror = function() {
