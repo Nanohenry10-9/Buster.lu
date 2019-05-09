@@ -11,7 +11,7 @@
 	checkPopup();
 	
 	var stopList = [];
-	var stopListURL = "all-stops-list.txt";
+	var stopListURL = proxy + "hafas/query.exe/dot?performLocating=2&tpl=stop2csv&look_maxdist=150000&look_x=6112550&look_y=49610700&stationProxy=yes";
 	var lReq = new XMLHttpRequest();
 	lReq.open("GET", stopListURL);
 	lReq.send();
