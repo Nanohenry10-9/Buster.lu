@@ -1,6 +1,6 @@
 ﻿$(document).ready(function() {
 
-	var proxy = "https://debiliteit.stereo.lu/";
+	var proxy = "https://debiliteit.buster.lu/";
 
 	var display_interval1;
 	var display_interval2;
