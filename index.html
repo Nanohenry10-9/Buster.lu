@@ -3,24 +3,33 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="shortcut icon" href="Buster Logo 1 transparent.png" type="image/png">
-		<link rel="apple-touch-icon" href="Buster Logo 1 transparent.png" type="image/png">
+		<link rel="shortcut icon" href="logo.png" type="image/png">
+		<link rel="apple-touch-icon" href="logo.png" type="image/png">
   		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
  		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/js/flat-ui.min.js"></script>
   		
-		<script type="application/javascript" src="backbone.js"></script>
+		<script type="application/javascript" src="utils.js"></script>
+		<script type="application/javascript" src="main.js"></script>
  		<link rel="stylesheet" href="style.css">
 		
 		<title>Buster.lu</title>
 	</head>
 	<body>
+		<div id="loading">
+			<img id="logo" src="logo.png">
+			<h1>Welcome to Buster.lu!</h1>
+			<p>Loading bus stop data...</p>
+			<div id="loadingBarContainer">
+				<div id="loadingBar"></div>
+			</div>
+		</div>
 		<nav class="navbar navbar-default navbar-static-top">
 			<div class="container-fluid" id="navbar">
 				<div class="navbar-header">
-					<a href="index.html" class="navbar-brand"><img id="logo" src="Buster Logo 1 transparent.png">Buster.lu</a>
+					<a href="index.html" class="navbar-brand"><img id="logo" src="logo.png">Buster.lu</a>
 				    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-col">
 				    	<span class="icon-bar"></span>
 				    	<span class="icon-bar"></span>
@@ -38,41 +47,17 @@
 		</nav>
  		<div class="container">
 			<div id="all">
-				<h1 align="center" class="title">Search for a bus stop...</h1>
-				<div class="container-fluid" id="inner-container">
-					<form id="section textbox">
-						<input type="text" id="input-text" placeholder="Search with name..." class="form-control">
-					</form>
-					<h5 id="text-or" align="center">or</h5>
-					<button class="btn btn-primary" id="LocateBtn" align="left">Locate me</button>
+				<h1 align="center" class="title">Search for a bus stop</h1>
+				<div id="locationToggleContainer">
+					<p class="toggleLabel">Sort by distance</p>
+					<div id="locationToggle" class="toggleContainer">
+						<div class="toggle"></div>
+					</div>
 				</div>
-				<div id="result">
-					<table class="table table-striped table-hover table-responsive">
-						<thead>
-							<tr>
-								<th class="table-50"><h4 id="result-name">Stop name</h4></th><th class="table-50" id="dist"><h4 id="result-dist">Distance</h4></th>
-							</tr>
-						</thead>
-						<tbody id="table-content"></tbody>
-					</table>
+				<div id="input-field-container">
+					<input type="text" id="name-input" placeholder="Search by name and/or line number..." class="form-control">
 				</div>
-				<div id="error" class="alert alert-warning" role="alert">
-					<h4 id="error-text">No results</h4>
-				</div>
-			</div>
-			<div id="pop-up-div" align="center" class="view-hidden">
-				<h4 id="pop-up-text">Bus stop</h4><h5 id="clock">Loading clock...</h5>
-				<table id="result-table" class="table table-striped table-hover table-responsive">
-					<thead>
-						<tr>
-							<th class="table-10">Line</th><th class="table-60">Destination</th><th class="table-30">Time</th>
-						</tr>
-					</thead>
-					<tbody id="table-content-popup"></tbody>
-				</table>
-				<div id="map-div">
-					<iframe id="map" width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-				</div>
+				<div id="result"></div>
 			</div>
 
 			<div id="fork" style="position: absolute; top: 0; left: 0%; height: 57px; visibility: hidden; padding: 15px; text-align: center; background-color: #37C690; border-radius: 0px 15px 15px 0px;"><a style="color: white;" href="https://github.com/Nanohenry10-9/Buster.lu">Fork me on GitHub!</a>
