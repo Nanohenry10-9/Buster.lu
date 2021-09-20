@@ -105,6 +105,14 @@ const _generateDistIcon = dist => {
 
 const _productToBusInfo = product => ({type: product.catOut, line: (product.line && product.line != ""? product.line : product.name).replace(" ", ""), color: {bg: product.icon.backgroundColor.hex, fg: product.icon.foregroundColor.hex}});
 
+const _updateCollapsibleHeight = elem => {
+	if (!elem.classList.contains("active")) {
+		elem.style.maxHeight = null;
+	} else {
+		elem.style.maxHeight = elem.scrollHeight + "px";
+	}
+};
+
 const utils = {
 	computeCoordDistance: _computeCoordDistance,
 	parseCommaFloat: _parseCommaFloat,
@@ -120,7 +128,8 @@ const utils = {
 	formatTime: _formatTime,
 	generateBusIcon: _generateBusIcon,
 	generateDistIcon: _generateDistIcon,
-	productToBusInfo: _productToBusInfo
+	productToBusInfo: _productToBusInfo,
+	updateCollapsibleHeight: _updateCollapsibleHeight
 };
 
 /*window.addEventListener("load", () => {

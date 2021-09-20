@@ -198,8 +198,15 @@
 	align-content: flex-start;
 	gap: 30px;
 
-	margin-left: 10%;
-	margin-right: 10%;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+@media (max-width: 500px) {
+	#all {
+		margin-left: 5px;
+		margin-right: 5px;
+	}
 }
 
 .title {
@@ -224,7 +231,7 @@
 
 #result {
 	width: 100%;
-	margin-bottom: 50px;
+	margin-bottom: 40px;
 
 	display: flex;
 	flex-flow: column nowrap;
@@ -269,14 +276,33 @@
 	width: 100%;
 	display: block;
 	opacity: 0.0;
-	transform: translateX(20px);
+	transform: translate(20px, 0);
 
 	transition: opacity 0.2s, transform 0.4s;
 }
 
-.collapsible-container.visible {
+.alert {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.alert.animated {
+	opacity: 0.0;
+	transform: translate(0, 10px);
+
+	transition: opacity 0.2s, transform 0.4s;
+}
+
+.alert p {
+	width: 100%;
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.collapsible-container.visible, .alert.animated.visible {
 	opacity: 1.0;
-	transform: translateX(0);
+	transform: translate(0, 0);
 }
 
 .collapsible-container:not(:last-child) {
@@ -290,7 +316,7 @@
 	cursor: pointer;
 	padding: 5px 15px;
 	font-size: 18px;
-	border-radius: 15px;
+	border-radius: 5px;
 	display: inline-block;
 }
 
@@ -305,6 +331,8 @@
 	max-height: 0;
 	overflow: hidden;
 	transition: max-height 0.2s ease-in-out;
+
+	box-shadow: inset 0 10px 10px -10px #0007;
 }
 
 .collapsible-header-elem-l, .collapsible-header-elem-l * {
@@ -319,44 +347,52 @@
 	padding: 10px 10px;
 }
 
+.collapsible-content-elem .alert {
+	margin-top: 10px;
+}
+
 .departure-table {
 	width: 100%;
 	padding: 5px;
 	margin-bottom: 10px;
+	table-layout: auto;
 }
 
-.departure-table-row:first-child {
+.departure-table-row:first-child td {
 	font-weight: bold;
 	border-bottom: 2px solid #34495e;
 }
 
 .departure-table-row:nth-child(2n + 1) {
 	background-color: #FFF;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .departure-table-row:nth-child(2n) {
 	background-color: #DDD;
 }
 
+.departure-table-row {
+
+}
+
 .departure-table-row td {
 	padding: 4px 8px;
+	white-space: nowrap;
 }
 
 .departure-table-row td:nth-child(1) {
-	width: 100px;
+	width: 1px;
+	text-align: center;
 }
 .departure-table-row td:nth-child(2) {
-	width: calc(100% - 200px);
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 .departure-table-row td:nth-child(3) {
-	width: 100px;
-}
-
-.alert p {
-	width: 100%;
+	width: 1px;
 	text-align: center;
-	font-size: 24px;
-	font-weight: bold;
 }
 
 @media (max-width: 659px) {
