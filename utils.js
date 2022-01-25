@@ -1,11 +1,15 @@
 const _parseCommaFloat = s => parseFloat(s.replace(",", "."));
-const _toRadians = deg => deg * (Math.PI / 180.0);
+const _toRadians = deg => deg * (Math.PI / 180);
 
 const _computeCoordDistance = (lat1, lon1, lat2, lon2) => {
 	var dLat = _toRadians(lat2 - lat1);
 	var dLon = _toRadians(lon2 - lon1);
 	var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(_toRadians(lat1)) * Math.cos(_toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-	return 6371000 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+	// 6366 km is the approximate radius of the Earth in Luxembourg
+	// The difference is tiny, but hey, why not make it precise
+
+	return 6366000 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 };
 
 const _getResourceAsJSON = url => fetch(server + url).then(resp => resp.json());

@@ -63,7 +63,7 @@ const updateSearch = () => {
 	};
 
 	const updateDepartureTable = (elem, id) => {
-		const makeDate = (date, time) => new Date(`${date}T${time}.000+02:00`);
+		const makeDate = (date, time) => new Date(`${date}T${time}.000`);
 
 		const depTable = data => {
 			const tableRow = vals => {
