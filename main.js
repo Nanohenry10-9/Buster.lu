@@ -1,6 +1,6 @@
 ﻿const server = "https://cdt.hafas.de/";
 
-const apiKey = "c2fb3438-45a4-48ff-9f5f-3546da29c6a9"; // this is the universal/public key, no worries
+const apiKey = "acf20309-d2af-46ed-b128-dd1b195fbc7d";
 
 const api = {
 	stops: opt => `opendata/apiserver/location.nearbystops?accessId=${apiKey}&id=220401001&originCoordLong=${opt.lon}&originCoordLat=${opt.lat}&maxNo=${opt.n}&r=${opt.r}&format=json`,
