@@ -82,6 +82,8 @@ const updateDepartureTable = (elem, id) => {
 			frameElement.style.height = document.body.scrollHeight + "px";
 
 			utils.updateCollapsibleHeight(frameElement.parentElement);
+		} else {
+			utils.updateCollapsibleHeight(elem.parentElement);
 		}
 	});
 };
@@ -96,7 +98,7 @@ const mainView = () => {
 	var lastSearch = {names: [], lines: []};
 	var hideLoading = false;
 	var stops = [];
-
+	var intervals = new Map();
 	var busLines = new Set();
 
 	const updateSearch = () => {
@@ -118,7 +120,7 @@ const mainView = () => {
 
 		results = results.slice(0, 5);
 
-		const collapsible = (header, content) => {
+		const collapsible = (header, content, onclick) => {
 			const container = document.createElement("div");
 			container.classList.add("collapsible-container");
 
@@ -134,6 +136,7 @@ const mainView = () => {
 				headerElem.classList.toggle("active");
 				contentElem.classList.toggle("active");
 				utils.updateCollapsibleHeight(contentElem);
+				onclick(contentElem.classList.contains("active"));
 			});
 
 			container.appendChild(headerElem);
@@ -154,7 +157,7 @@ const mainView = () => {
 			const stopLink = document.createElement("a");
 			stopLink.href = `/stop.html?name=${stop.name}`;
 			stopLink.classList.add("stop-link");
-			stopLink.title = "Open stop in a new window";
+			stopLink.title = "Open stop on a new page";
 			stopLink.innerHTML = "<i class=\"bi bi-box-arrow-up-right\">";
 			stopLink.addEventListener("click", event => event.stopPropagation());
 			headerL.appendChild(stopLink);
@@ -167,23 +170,25 @@ const mainView = () => {
 			headerR.classList.add("collapsible-header-elem-r");
 			headerR.innerHTML = stop.buses?.map(bus => utils.generateBusIcon(bus.color.bg, bus.color.fg, bus.line).outerHTML).join(" ") || "";
 
-			const content = document.createElement("iframe");
+			const content = document.createElement("div");
 
-			// The timeout below is there to prevent unnecessary requests. If the user is typing a stop
-			// name, the delay between keypresses is probably less than 300 ms, so there is no need to
-			// request departure data before 300 ms has passed since the last keypress.
-
-			// You may adjust the timeout duration, but be aware that it's a balance between apparent
-			// page speed and unneccessary requests.
-
-			setTimeout(() => {
-				if (document.body.contains(content)) content.src = `/departure-view.html?id=${stop.id}`;
-			}, 300);
 			content.classList.add("collapsible-content-elem");
-			content.classList.add("departure-view-iframe");
 
-			return collapsible([headerL, headerR], [content]);
+			updateDepartureTable(content, stop.id);
+
+			return collapsible([headerL, headerR], [content], open => {
+				if (open) {
+					updateDepartureTable(content, stop.id);
+					intervals.set(stop.id, setInterval(() => updateDepartureTable(content, stop.id), 60000));
+				} else {
+					clearInterval(intervals.get(stop.id));
+					intervals.delete(stop.id);
+				}
+			});
 		});
+
+		intervals.forEach((id, interval) => clearInterval(interval));
+		intervals.clear();
 
 		while (resultContainer.firstChild) resultContainer.removeChild(resultContainer.lastChild);
 		
@@ -199,6 +204,7 @@ const mainView = () => {
 			resultContainer.appendChild(w);
 		}
 	};
+
 	const onInputChange = value => {
 		const search = utils.normalize(value).split(" ");
 
