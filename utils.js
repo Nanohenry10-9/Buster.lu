@@ -144,12 +144,9 @@ const _getStopFromParams = () => {
 	
 	const id = getStopID();
 
-	if (!id) return id;
+	if (!id) return null;
 
-	return {
-		id: id,
-		name: stopData.filter(stop => stop.id == id)[0].name
-	};
+	return stopData.filter(stop => stop.id == id)[0];
 };
 
 const utils = {
