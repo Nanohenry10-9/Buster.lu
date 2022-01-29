@@ -19,14 +19,6 @@
 		<title>Buster.lu</title>
 	</head>
 	<body>
-		<div id="loading">
-			<img id="logo" src="logo.png">
-			<h1>Welcome to Buster.lu!</h1>
-			<p>Loading bus stop data...</p>
-			<div id="loadingBarContainer">
-				<div id="loadingBar"></div>
-			</div>
-		</div>
 		<nav class="navbar navbar-default navbar-static-top">
 			<div class="container-fluid" id="navbar">
 				<div class="navbar-header">
@@ -47,22 +39,11 @@
 			</div>
 		</nav>
  		<div class="container">
-			<div id="all">
-				<h1 align="center" class="title">Search for a bus stop</h1>
-				<div id="locationToggleContainer">
-					<p class="toggleLabel">Sort by distance</p>
-					<div id="locationToggle" class="toggleContainer">
-						<div class="toggle"></div>
-					</div>
-				</div>
-				<div id="input-field-container">
-					<input type="text" id="name-input" placeholder="Search by name and/or line number..." class="form-control">
-				</div>
-				<div id="result"></div>
-			</div>
-
-			<div id="fork" style="position: absolute; top: 0; left: 0%; height: 57px; visibility: hidden; padding: 15px; text-align: center; background-color: #37C690; border-radius: 0px 15px 15px 0px;"><a style="color: white;" href="https://github.com/Nanohenry10-9/Buster.lu">Fork me on GitHub!</a>
-			</div>
-		</div>
+ 			<div class="stop-view-header">
+ 				<p id="stop-header-name"></p>
+ 				<p id="stop-header-clock"></p>
+ 			</div>
+ 			<div id="departure-table"></div>
+ 		</div>
 	</body>
 </html>

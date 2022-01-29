@@ -14,6 +14,8 @@ const _computeCoordDistance = (lat1, lon1, lat2, lon2) => {
 
 const _getResourceAsJSON = url => fetch(server + url).then(resp => resp.json());
 
+//const _getResourceAsJSON = url => new Promise((a, r) => setTimeout(() => a({}), 500));
+
 const _showSpinner = elem => {
 	var bounds = elem.getBoundingClientRect();
 
@@ -55,7 +57,7 @@ const _errorBox = msg => {
 const _warning = msg => {
 	const container = document.createElement("div");
 	container.classList.add("alert");
-	container.classList.add("alert-warning");
+	//container.classList.add("alert-warning");
 
 	const text = document.createElement("p");
 	text.innerHTML = msg;
@@ -117,6 +119,39 @@ const _updateCollapsibleHeight = elem => {
 	}
 };
 
+const _getStopFromParams = () => {
+	const params = new URLSearchParams(window.location.search);
+	const stopData = JSON.parse(localStorage.getItem("stops"))?.data;
+
+	if (!stopData) {
+		params.append("page", window.location.pathname.substring(1).split(".")[0]);
+		window.location.replace(`/?${params.toString()}`);
+	}
+
+	const getStopID = () => {
+		if (params.has("id")) {
+			return params.get("id");
+		}
+
+		if (params.has("name")) {
+			const searchName = params.get("name");
+
+			return stopData.filter(stop => utils.normalize(searchName).split(" ").every(name => utils.normalize(stop.name).includes(name)))[0]?.id;
+		}
+
+		return null;
+	};
+	
+	const id = getStopID();
+
+	if (!id) return id;
+
+	return {
+		id: id,
+		name: stopData.filter(stop => stop.id == id)[0].name
+	};
+};
+
 const utils = {
 	computeCoordDistance: _computeCoordDistance,
 	parseCommaFloat: _parseCommaFloat,
@@ -133,7 +168,8 @@ const utils = {
 	generateBusIcon: _generateBusIcon,
 	generateDistIcon: _generateDistIcon,
 	productToBusInfo: _productToBusInfo,
-	updateCollapsibleHeight: _updateCollapsibleHeight
+	updateCollapsibleHeight: _updateCollapsibleHeight,
+	getStopFromParams: _getStopFromParams
 };
 
 /*window.addEventListener("load", () => {

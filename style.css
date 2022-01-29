@@ -58,6 +58,26 @@
 	height: 30px;
 	overflow: hidden;
 	box-shadow: inset 0 0 7px #0007;
+
+	animation-name: loadingBarAnim;
+	animation-timing-function: ease-in-out;
+	animation-fill-mode: both;
+	animation-duration: 3.2s;
+}
+
+@keyframes loadingBarAnim {
+	0% {
+		opacity: 0.0;
+	}
+	10% {
+		opacity: 0.0;
+	}
+	90% {
+		opacity: 1.0;
+	}
+	100% {
+		opacity: 1.0;
+	}
 }
 
 #loadingBar {
@@ -75,11 +95,11 @@
 }
 
 @keyframes loadingAnim {
-	from {
+	0% {
 		filter: brightness(0.7);
 		width: 0;
 	}
-	to {
+	100% {
 		filter: brightness(1.0);
 		width: 75vw;
 	}
@@ -283,7 +303,8 @@
 
 .alert {
 	width: 100%;
-	margin-bottom: 10px;
+	margin-bottom: 0;
+	padding: 5px;
 }
 
 .alert.animated {
@@ -296,8 +317,9 @@
 .alert p {
 	width: 100%;
 	text-align: center;
-	font-size: 24px;
+	font-size: 22px;
 	font-weight: bold;
+	color: #0009;
 }
 
 .collapsible-container.visible, .alert.animated.visible {
@@ -344,17 +366,12 @@
 }
 
 .collapsible-content-elem {
-	padding: 10px 10px;
-}
-
-.collapsible-content-elem .alert {
 	margin-top: 10px;
 }
 
 .departure-table {
 	width: 100%;
 	padding: 5px;
-	margin-bottom: 10px;
 	table-layout: auto;
 }
 
@@ -397,6 +414,7 @@
 
 @media (max-width: 659px) {
 	.title {
+		margin-top: 20px;
 		font-size: 8vw;
 	}
 }
@@ -418,6 +436,80 @@
 	font-size: 16px;
 }
 
+.contact-info {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: space-around;
+}
+
 .contact {
+	background-color: #16A085;
+	color: #FFF;
 	font-size: 30px;
+	padding: 5px 20px;
+	border-radius: 5px;
+}
+
+@media (max-width: 659px) {
+	.contact-info {
+		flex-flow: column nowrap;
+		gap: 5px;
+	}
+
+	.contact {
+		width: 100%;
+	}
+}
+
+.departure-view-iframe {
+	width: 100%;
+	margin: 10px 0 5px 0;
+	padding: 0;
+	border: none;
+}
+
+.stop-view-header {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+#stop-header-name {
+	font-size: 42px;
+	font-weight: bold;
+}
+
+#stop-header-clock {
+	font-size: 42px;
+	font-weight: bold;
+}
+
+@media (max-width: 659px) {
+	.navbar {
+		margin-bottom: 10px;
+	}
+
+	.stop-view-header {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	#stop-header-name {
+		font-size: 32px;
+	}
+
+	#stop-header-clock {
+		display: none;
+	}
+}
+
+.stop-link * {
+	width: 28px;
+	height: 34px;
+	color: #000;
+	text-decoration: none;
 }
