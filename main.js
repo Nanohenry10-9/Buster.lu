@@ -332,7 +332,7 @@ const stopView = () => {
 		updateClock(clock);
 		setInterval(() => updateClock(clock), 1000);
 
-		document.getElementById("map").src = `https://www.openstreetmap.org/export/embed.html?bbox=${stop.lon},${stop.lat},${stop.lon},${stop.lat}&marker=${stop.lat},${stop.lon}`;
+		document.getElementById("map").contentWindow.location.replace(`https://www.openstreetmap.org/export/embed.html?bbox=${stop.lon},${stop.lat},${stop.lon},${stop.lat}&marker=${stop.lat},${stop.lon}`);
 
 		updateDepartureTable(elem, stop.id);
 		setInterval(() => updateDepartureTable(elem, stop.id), 60000);
