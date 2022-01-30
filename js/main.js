@@ -55,22 +55,6 @@ const updateDepartureTable = (elem, id) => {
 	utils.getResourceAsJSON(api.departures({id: id})).then(data => {
 		while (elem.firstChild) elem.removeChild(elem.lastChild);
 
-		/*if (!data.Departure) {
-			data.Departure = [];
-			for (var i = 0; i < 5; i++) {
-				data.Departure.push({
-					Product: {
-						catOut: "Bus",
-						line: "TEST",
-						icon: {backgroundColor: {hex: "#AAA"}, foregroundColor: {hex: "#FFF"}},
-					},
-					date: "2023-01-01",
-					time: "00:00:00",
-					direction: "TEST DATA"
-				});
-			}
-		}*/
-
 		if (data.Departure) {
 			elem.appendChild(depTable(data.Departure.map(dep => ({...utils.productToBusInfo(dep.Product), time: makeDate(dep.rtDate || dep.date, dep.rtTime || dep.time), direction: dep.direction})).sort((a, b) => a.time - b.time).slice(0, 15)));
 		} else {

@@ -14,8 +14,6 @@ const _computeCoordDistance = (lat1, lon1, lat2, lon2) => {
 
 const _getResourceAsJSON = url => fetch(server + url).then(resp => resp.json());
 
-//const _getResourceAsJSON = url => new Promise((a, r) => setTimeout(() => a({}), 500));
-
 const _showSpinner = elem => {
 	var bounds = elem.getBoundingClientRect();
 
@@ -57,7 +55,6 @@ const _errorBox = msg => {
 const _warning = msg => {
 	const container = document.createElement("div");
 	container.classList.add("alert");
-	//container.classList.add("alert-warning");
 
 	const text = document.createElement("p");
 	text.innerHTML = msg;
@@ -168,7 +165,3 @@ const utils = {
 	updateCollapsibleHeight: _updateCollapsibleHeight,
 	getStopFromParams: _getStopFromParams
 };
-
-/*window.addEventListener("load", () => {
-	document.querySelectorAll(".toggleContainer").forEach(elem => elem.addEventListener("click", () => elem.classList.toggle("enabled")));
-});*/
