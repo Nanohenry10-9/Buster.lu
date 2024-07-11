@@ -106,14 +106,17 @@ const _generateDistIcon = dist => {
 	return elem;
 };
 
-const _productToBusInfo = ([product]) => ({
-	type: product.catOut,
-	line: (product.line && product.line != ""? product.line : product.name).replace(" ", ""),
-	color: {
-		bg: product.icon.backgroundColor.hex,
-		fg: product.icon.foregroundColor.hex
-	}
-});
+const _productToBusInfo = product => {
+	if (Array.isArray(product)) product = product[0];
+	return {
+		type: product.catOut,
+		line: (product.line && product.line != ""? product.line : product.name).replace(" ", ""),
+		color: {
+			bg: product.icon.backgroundColor.hex,
+			fg: product.icon.foregroundColor.hex
+		}
+	};
+}
 
 const _updateCollapsibleHeight = elem => {
 	if (!elem.classList.contains("active")) {
